@@ -1,0 +1,42 @@
+{
+  "name": "coin-wallet-back",
+  "version": "1.0.0",
+  "description": "The back-end of the Coin Wallet App",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --exit",
+    "dev": "nodemon server/index.js",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raugusto96/coin-wallet-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raugusto96/coin-wallet-back/issues"
+  },
+  "homepage": "https://github.com/raugusto96/coin-wallet-back#readme",
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0"
+  },
+  "dependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.3",
+    "http-status-code": "^2.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^9.2.0",
+    "mongodb": "^4.4.0",
+    "mongodb-memory-server": "^8.3.0",
+    "mongoose": "^6.2.2",
+    "nodemon": "^2.0.15",
+    "sinon": "^13.0.1"
+  }
+}
