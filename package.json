@@ -20,11 +20,11 @@
   },
   "homepage": "https://github.com/raugusto96/coin-wallet-back#readme",
   "devDependencies": {
-    "dotenv": "^16.0.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
