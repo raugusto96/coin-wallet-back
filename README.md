@@ -1,1 +1,1 @@
-# coin-wallet-back
+# Coin Wallet Back-end
