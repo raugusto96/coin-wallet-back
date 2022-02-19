@@ -5,7 +5,10 @@ const createUser = async (collectionName, item) => {
     const db = await connection();
     const user = await db.collection(collectionName)
       .insertOne({ ...item, create: new Date(), update: new Date() });
-    return user;
+    const { insertedId: _id } = user;
+    return ({
+      ...item, create: new Date(), update: new Date(), _id,
+    });
   } catch (error) {
     return error;
   }
