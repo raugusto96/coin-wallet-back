@@ -3,7 +3,7 @@ const services = require('../services');
 
 const logIn = async (req, res) => {
   const token = await services.user.logIn(req.body);
-  if (token.err) return res.status(StatusCodes.NOT_ACCEPTABLE).json(token);
+  if (token.message) return res.status(StatusCodes.NOT_ACCEPTABLE).json(token);
   return res.status(StatusCodes.OK).json({ token });
 };
 
