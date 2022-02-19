@@ -5,6 +5,11 @@ require('dotenv').config();
 const { SECRET_KEY } = process.env;
 const { FIRST_COLLECTION_NAME } = process.env;
 
+const jwtOptions = {
+  expiresIn: '12h',
+  algorithm: 'HS256',
+};
+
 const createUser = async (item) => {
   const user = await models.user.createUser(FIRST_COLLECTION_NAME, item);
   const { name, email, _id } = user;
@@ -21,7 +26,7 @@ const logIn = async (item) => {
   } = user;
   const token = jwt.sign({
     name, area, _id,
-  }, SECRET_KEY);
+  }, SECRET_KEY, jwtOptions);
   return token;
 };
 
