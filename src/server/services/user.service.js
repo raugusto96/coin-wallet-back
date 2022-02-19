@@ -5,6 +5,12 @@ require('dotenv').config();
 const { SECRET_KEY } = process.env;
 const { FIRST_COLLECTION_NAME } = process.env;
 
+const createUser = async (item) => {
+  const user = await models.user.createUser(FIRST_COLLECTION_NAME, item);
+  const { name, email, _id } = user;
+  return { name, email, _id };
+};
+
 const logIn = async (item) => {
   const user = await models.user.logIn(FIRST_COLLECTION_NAME, item);
   if (!user) {
@@ -20,5 +26,6 @@ const logIn = async (item) => {
 };
 
 module.exports = {
+  createUser,
   logIn,
 };
