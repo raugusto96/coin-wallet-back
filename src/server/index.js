@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const router = require('./routes');
 
 const app = express();
 const { PORT } = process.env;
@@ -11,6 +12,8 @@ app.use(cors());
 app.get('/', (_req, res) => {
   res.status(200).json();
 });
+
+app.use('/', router.user);
 
 app.listen(PORT, () => console.log(`App listening the port: ${PORT}`));
 
