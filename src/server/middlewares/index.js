@@ -1,5 +1,7 @@
 const user = require('./validateUserInfos.middlewares');
 
 module.exports = {
-  user,
+  validateName: user.validateName,
+  validateEmail: user.validateEmail,
+  validatePassword: user.validatePassword,
 };
