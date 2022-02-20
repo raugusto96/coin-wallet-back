@@ -10,7 +10,15 @@ const validateEmail = (email) => {
   return true;
 };
 
+const validatePassword = (password) => {
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+  const isValidPassword = passwordRegex.test(password);
+  if (isValidPassword) return { message: 'Password is not valid' };
+  return true;
+};
+
 module.exports = {
   validateName,
   validateEmail,
+  validatePassword,
 };
