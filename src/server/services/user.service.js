@@ -11,6 +11,12 @@ const jwtOptions = {
   algorithm: 'HS256',
 };
 
+const findByEmail = async (email) => {
+  const user = await models.user.findByEmail(FIRST_COLLECTION_NAME, email);
+  if (user !== null) return { error: { message: 'User already registered' } };
+  return false;
+};
+
 const createUser = async (item) => {
   const isValidName = middlewares.validateName(item.name);
   if (isValidName.error) return isValidName;
@@ -18,6 +24,8 @@ const createUser = async (item) => {
   if (isValidEmail.error) return isValidEmail;
   const isValidPassword = middlewares.validatePassword(item.password);
   if (isValidPassword.error) return isValidPassword;
+  const isEmailExists = await findByEmail(item.email);
+  if (isEmailExists.error) return isEmailExists;
   const user = await models.user.createUser(FIRST_COLLECTION_NAME, item);
   const { name, email, _id } = user;
   return { name, email, _id };
@@ -40,4 +48,5 @@ const logIn = async (item) => {
 module.exports = {
   createUser,
   logIn,
+  findByEmail,
 };
