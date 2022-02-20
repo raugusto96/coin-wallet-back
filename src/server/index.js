@@ -14,6 +14,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/', router.user);
+app.use('/', router.expenses);
 
 app.listen(PORT, () => console.log(`App listening the port: ${PORT}`));
 
