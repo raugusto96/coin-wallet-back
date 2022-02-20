@@ -1,5 +1,16 @@
 const connection = require('./connection');
 
+const findByEmail = async (collectionName, email) => {
+  try {
+    const db = await connection();
+    const findedEmail = await db.collection(collectionName)
+      .findOne({ email });
+    return findedEmail;
+  } catch (error) {
+    return error;
+  }
+};
+
 const createUser = async (collectionName, item) => {
   try {
     const db = await connection();
@@ -27,4 +38,5 @@ const logIn = async (collectionName, { email, password }) => {
 module.exports = {
   createUser,
   logIn,
+  findByEmail,
 };
