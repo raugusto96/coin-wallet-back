@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const models = require('../models');
 require('dotenv').config();
+const middlewares = require('../middlewares');
 
 const { SECRET_KEY } = process.env;
 const { FIRST_COLLECTION_NAME } = process.env;
@@ -11,6 +12,12 @@ const jwtOptions = {
 };
 
 const createUser = async (item) => {
+  const isValidName = middlewares.validateName(item.name);
+  if (isValidName.error) return isValidName;
+  const isValidEmail = middlewares.validateEmail(item.email);
+  if (isValidEmail.error) return isValidEmail;
+  const isValidPassword = middlewares.validatePassword(item.password);
+  if (isValidPassword.error) return isValidPassword;
   const user = await models.user.createUser(FIRST_COLLECTION_NAME, item);
   const { name, email, _id } = user;
   return { name, email, _id };
