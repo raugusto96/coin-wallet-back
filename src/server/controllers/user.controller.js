@@ -3,6 +3,7 @@ const services = require('../services');
 
 const createUser = async (req, res) => {
   const user = await services.user.createUser(req.body);
+  if (user.error) return res.status(StatusCodes.CONFLICT).json(user);
   return res.status(StatusCodes.OK).json({ user });
 };
 
