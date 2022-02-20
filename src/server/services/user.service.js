@@ -22,10 +22,10 @@ const logIn = async (item) => {
     return { message: 'Email or password do not match' };
   }
   const {
-    name, area, _id,
+    name, email, _id,
   } = user;
   const token = jwt.sign({
-    name, area, _id,
+    name, email, _id,
   }, SECRET_KEY, jwtOptions);
   return token;
 };
