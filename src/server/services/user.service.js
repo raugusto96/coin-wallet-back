@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 const models = require('../models');
 require('dotenv').config();
 const middlewares = require('../middlewares');
 
-const { SECRET_KEY } = process.env;
-const { FIRST_COLLECTION_NAME } = process.env;
+const { SECRET_KEY, FIRST_COLLECTION_NAME } = process.env;
 
 const jwtOptions = {
   expiresIn: '12h',
@@ -26,7 +26,8 @@ const createUser = async (item) => {
   if (isValidPassword.error) return isValidPassword;
   const isEmailExists = await findByEmail(item.email);
   if (isEmailExists.error) return isEmailExists;
-  const user = await models.user.createUser(FIRST_COLLECTION_NAME, item);
+  const newUser = { ...item, password: md5(item.password) };
+  const user = await models.user.createUser(FIRST_COLLECTION_NAME, newUser);
   const { name, email, _id } = user;
   return { name, email, _id };
 };
