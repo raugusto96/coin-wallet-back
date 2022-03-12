@@ -3,6 +3,7 @@ const md5 = require('md5');
 const models = require('../models');
 require('dotenv').config();
 const middlewares = require('../middlewares');
+const errorConstructor = require('../utils/errorConstructor.function');
 
 const { SECRET_KEY, FIRST_COLLECTION_NAME } = process.env;
 
@@ -13,7 +14,7 @@ const jwtOptions = {
 
 const findByEmail = async (email) => {
   const user = await models.user.findByEmail(FIRST_COLLECTION_NAME, email);
-  if (user !== null) return { error: { message: 'User already registered' } };
+  if (user !== null) throw errorConstructor('User already registered');
   return false;
 };
 
@@ -34,8 +35,9 @@ const createUser = async (item) => {
 
 const logIn = async (item) => {
   const user = await models.user.logIn(FIRST_COLLECTION_NAME, item);
+  console.log(user);
   if (!user) {
-    return { message: 'Email or password do not match' };
+    throw errorConstructor('Email or password do not match');
   }
   const {
     name, email, _id,
