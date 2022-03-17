@@ -25,10 +25,10 @@ const createUser = async (collectionName, item) => {
   }
 };
 
-const logIn = async (collectionName, { email, password }) => {
+const logIn = async (collectionName, { email }) => {
   try {
     const db = await connection();
-    const user = await db.collection(collectionName).findOne({ email, password });
+    const user = await db.collection(collectionName).findOne({ email });
     return user;
   } catch (error) {
     return error;
