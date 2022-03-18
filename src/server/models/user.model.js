@@ -28,8 +28,9 @@ const createUser = async (collectionName, item) => {
 
 const logIn = async (collectionName, { email }) => {
   try {
+    const formatedEmail = email.trim();
     const db = await connection();
-    const user = await db.collection(collectionName).findOne({ email });
+    const user = await db.collection(collectionName).findOne({ email: formatedEmail });
     return user;
   } catch (error) {
     return error;
