@@ -1,5 +1,27 @@
 const connection = require('./connection');
 
+const findByNickname = async (collectionName, nickname) => {
+  try {
+    const db = await connection();
+    const findedNick = await db.collection(collectionName)
+      .findOne({ nickname });
+    return findedNick;
+  } catch (error) {
+    return error;
+  }
+};
+
+const getByNickname = async (collectionName, nickname) => {
+  try {
+    const db = await connection();
+    const findedId = await db.collection(collectionName)
+      .findOne({ nickname });
+    return findedId;
+  } catch (error) {
+    return error;
+  }
+};
+
 const findByEmail = async (collectionName, email) => {
   try {
     const formatedEmail = email.trim();
@@ -41,4 +63,6 @@ module.exports = {
   createUser,
   logIn,
   findByEmail,
+  getByNickname,
+  findByNickname,
 };
