@@ -14,23 +14,19 @@ const jwtOptions = {
   algorithm: 'HS256',
 };
 
-const findByNickname = async (nickname) => {
-  const user = await models.user.findByNickname(FIRST_COLLECTION_NAME, nickname);
-  if (user !== null) return true;
-  return false;
+const findById = async (id) => {
+  const user = await models.user.findById(FIRST_COLLECTION_NAME, id);
+  if (!user) {
+    return errorConstructor('User doesn\'t exist');
+  }
+  const { _id, email, name } = user;
+  return { _id, email, name };
 };
 
-const getByNickname = async (nickname) => {
-  const user = await models.user.getByNickname(FIRST_COLLECTION_NAME, nickname);
-  if (!user) {
-    throw errorConstructor('Nickname doesn\'t exists');
-  }
-  const {
-    _id, email, name, nickname: userNickname,
-  } = user;
-  return {
-    _id, email, name, userNickname,
-  };
+const deleteById = async (id) => {
+  const findedUser = await findById(id);
+  await models.user.deleteById(FIRST_COLLECTION_NAME, findedUser);
+  return { status: 'deleted' };
 };
 
 const findByEmail = async (email) => {
@@ -44,18 +40,14 @@ const createUser = async (item) => {
   if (isUserRegistered) {
     throw errorConstructor('User already registered!');
   }
-  const isNicknameExists = await findByNickname(item.nickname);
-  if (isNicknameExists) {
-    throw errorConstructor('Nickname already exists!');
-  }
   const hash = bcrypt.hashSync(item.password, saltRounds);
   const newUser = { ...item, password: hash };
   const user = await models.user.createUser(FIRST_COLLECTION_NAME, newUser);
   const {
-    name, email, _id, nickname,
+    name, email, _id,
   } = user;
   return {
-    name, email, _id, nickname,
+    name, email, _id,
   };
 };
 
@@ -80,6 +72,6 @@ module.exports = {
   createUser,
   logIn,
   findByEmail,
-  getByNickname,
-  findByNickname,
+  findById,
+  deleteById,
 };

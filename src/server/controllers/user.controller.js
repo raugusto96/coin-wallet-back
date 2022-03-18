@@ -1,13 +1,23 @@
 const { StatusCodes } = require('http-status-codes');
 const services = require('../services');
 
-const getByNickname = async (req, res) => {
+const findById = async (req, res) => {
   try {
-    const { nickname } = req.params;
-    const user = await services.user.getByNickname(nickname);
+    const { id } = req.params;
+    const user = await services.user.findById(id);
     return res.status(StatusCodes.OK).json({ user });
   } catch (error) {
-    return res.status(StatusCodes.BAD_REQUEST).json(error);
+    return error;
+  }
+};
+
+const deleteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const status = await services.user.deleteById(id);
+    return res.status(StatusCodes.OK).json(status);
+  } catch (error) {
+    return error;
   }
 };
 
@@ -32,5 +42,6 @@ const logIn = async (req, res) => {
 module.exports = {
   createUser,
   logIn,
-  getByNickname,
+  findById,
+  deleteById,
 };

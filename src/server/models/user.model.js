@@ -1,22 +1,23 @@
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
-const findByNickname = async (collectionName, nickname) => {
+const findById = async (collectionName, id) => {
   try {
     const db = await connection();
-    const findedNick = await db.collection(collectionName)
-      .findOne({ nickname });
-    return findedNick;
+    const findedId = await db.collection(collectionName)
+      .findOne(ObjectId(id));
+    return findedId;
   } catch (error) {
     return error;
   }
 };
 
-const getByNickname = async (collectionName, nickname) => {
+const deleteById = async (collectionName, user) => {
   try {
     const db = await connection();
-    const findedId = await db.collection(collectionName)
-      .findOne({ nickname });
-    return findedId;
+    const deletedUser = await db.collection(collectionName)
+      .deleteOne(user);
+    return deletedUser;
   } catch (error) {
     return error;
   }
@@ -63,6 +64,6 @@ module.exports = {
   createUser,
   logIn,
   findByEmail,
-  getByNickname,
-  findByNickname,
+  findById,
+  deleteById,
 };
