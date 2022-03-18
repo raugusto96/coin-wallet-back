@@ -2,9 +2,10 @@ const connection = require('./connection');
 
 const findByEmail = async (collectionName, email) => {
   try {
+    const formatedEmail = email.trim();
     const db = await connection();
     const findedEmail = await db.collection(collectionName)
-      .findOne({ email });
+      .findOne({ email: formatedEmail });
     return findedEmail;
   } catch (error) {
     return error;
