@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha src/integration-tests/ --exit",
-    "dev": "nodemon src/server/index.js",
+    "dev": "nodemon src/api/index.js",
     "lint": "eslint"
   },
   "repository": {
