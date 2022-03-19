@@ -1,6 +1,16 @@
 const { StatusCodes } = require('http-status-codes');
 const services = require('../services');
 
+const resetPassword = async (req, res) => {
+  try {
+    const { email, name } = req.body;
+    await services.user.resetPassword(email, name);
+    return res.status(StatusCodes.OK).json();
+  } catch (error) {
+    return error;
+  }
+};
+
 const findById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,4 +54,5 @@ module.exports = {
   logIn,
   findById,
   deleteById,
+  resetPassword,
 };

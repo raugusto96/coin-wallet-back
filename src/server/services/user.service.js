@@ -4,14 +4,17 @@ const models = require('../models');
 require('dotenv').config();
 const errorConstructor = require('../utils/errorConstructor.function');
 const verifyPassword = require('../utils/verifyPassword.function');
+const mailer = require('../utils/nodemailer.function');
 
-const { SECRET_KEY, FIRST_COLLECTION_NAME } = process.env;
-
-const saltRounds = 10;
+const { SECRET_KEY, FIRST_COLLECTION_NAME, SALT_ROUNDS } = process.env;
 
 const jwtOptions = {
   expiresIn: '12h',
   algorithm: 'HS256',
+};
+
+const resetPassword = async (email, name) => {
+  mailer(email, name);
 };
 
 const findById = async (id) => {
@@ -40,7 +43,7 @@ const createUser = async (item) => {
   if (isUserRegistered) {
     throw errorConstructor('User already registered!');
   }
-  const hash = bcrypt.hashSync(item.password, saltRounds);
+  const hash = bcrypt.hashSync(item.password, SALT_ROUNDS);
   const newUser = { ...item, password: hash };
   const user = await models.user.createUser(FIRST_COLLECTION_NAME, newUser);
   const {
@@ -74,4 +77,5 @@ module.exports = {
   findByEmail,
   findById,
   deleteById,
+  resetPassword,
 };
