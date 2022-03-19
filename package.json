@@ -37,6 +37,7 @@
     "mongodb": "^4.4.0",
     "mongodb-memory-server": "^8.3.0",
     "mongoose": "^6.2.2",
+    "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
     "sinon": "^13.0.1"
   }
