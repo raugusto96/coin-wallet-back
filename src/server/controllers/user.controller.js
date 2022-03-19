@@ -7,7 +7,7 @@ const resetPassword = async (req, res) => {
     await services.user.resetPassword(email, name);
     return res.status(StatusCodes.OK).json();
   } catch (error) {
-    return error;
+    return res.status(StatusCodes.BAD_REQUEST).json(error);
   }
 };
 
@@ -17,7 +17,7 @@ const findById = async (req, res) => {
     const user = await services.user.findById(id);
     return res.status(StatusCodes.OK).json({ user });
   } catch (error) {
-    return error;
+    return res.status(StatusCodes.BAD_REQUEST).json(error);
   }
 };
 
@@ -27,7 +27,7 @@ const deleteById = async (req, res) => {
     const status = await services.user.deleteById(id);
     return res.status(StatusCodes.OK).json(status);
   } catch (error) {
-    return error;
+    return res.status(StatusCodes.BAD_REQUEST).json(error);
   }
 };
 

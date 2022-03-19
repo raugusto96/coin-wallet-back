@@ -13,14 +13,10 @@ const jwtOptions = {
   algorithm: 'HS256',
 };
 
-const resetPassword = async (email, name) => {
-  mailer(email, name);
-};
-
 const findById = async (id) => {
   const user = await models.user.findById(FIRST_COLLECTION_NAME, id);
   if (!user) {
-    return errorConstructor('User doesn\'t exist');
+    throw errorConstructor('User doesn\'t exist');
   }
   const { _id, email, name } = user;
   return { _id, email, name };
@@ -36,6 +32,14 @@ const findByEmail = async (email) => {
   const user = await models.user.findByEmail(FIRST_COLLECTION_NAME, email);
   if (user !== null) return true;
   return false;
+};
+
+const resetPassword = async (email, name) => {
+  const findedEmail = await findByEmail(email);
+  if (!findedEmail) {
+    throw errorConstructor('Email not registered!');
+  }
+  mailer(email, name);
 };
 
 const createUser = async (item) => {
