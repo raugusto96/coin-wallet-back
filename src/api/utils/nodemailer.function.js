@@ -22,7 +22,6 @@ module.exports = (email, name) => {
     from: MAIL_USERNAME,
     to: email,
     subject: 'Coin Wallet Project',
-    // text: `Hello ${name}`,
     html: `<b>Olá ${name}!</b><br>
     Esse é um email para recuperar sua senha.<br>
     <a href="http://teste.com">Link de teste, não clique</a>`,
