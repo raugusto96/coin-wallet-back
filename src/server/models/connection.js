@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const { ATLAS_URI } = process.env;
-const { DB_NAME } = process.env;
+const { ATLAS_URI, DB_NAME } = process.env;
+
 const OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
