@@ -4,7 +4,6 @@ const models = require('../models');
 require('dotenv').config();
 const errorConstructor = require('../utils/errorConstructor.function');
 const verifyPassword = require('../utils/verifyPassword.function');
-const mailer = require('../utils/nodemailer.function');
 
 const { SECRET_KEY, FIRST_COLLECTION_NAME, SALT_ROUNDS } = process.env;
 
@@ -34,12 +33,16 @@ const findByEmail = async (email) => {
   return false;
 };
 
-const resetPassword = async (email, name) => {
+const sendEmail = async (email) => {
   const findedEmail = await findByEmail(email);
   if (!findedEmail) {
     throw errorConstructor('Email not registered!');
   }
-  mailer(email, name);
+};
+
+const resetPassword = async (email, password) => {
+  const hash = bcrypt.hashSync(password, Number(SALT_ROUNDS));
+  await models.user.resetPassword(FIRST_COLLECTION_NAME, email, hash);
 };
 
 const createUser = async (item) => {
@@ -47,12 +50,11 @@ const createUser = async (item) => {
   if (isUserRegistered) {
     throw errorConstructor('User already registered!');
   }
-  const hash = bcrypt.hashSync(item.password, SALT_ROUNDS);
-  const newUser = { ...item, password: hash };
-  const user = await models.user.createUser(FIRST_COLLECTION_NAME, newUser);
+  const hash = bcrypt.hashSync(item.password, Number(SALT_ROUNDS));
+  const newUser = await models.user.createUser(FIRST_COLLECTION_NAME, { ...item, password: hash });
   const {
     name, email, _id,
-  } = user;
+  } = newUser;
   return {
     name, email, _id,
   };
@@ -82,4 +84,5 @@ module.exports = {
   findById,
   deleteById,
   resetPassword,
+  sendEmail,
 };

@@ -1,10 +1,21 @@
 const { StatusCodes } = require('http-status-codes');
 const services = require('../services');
 
+const sendEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+    await services.user.sendEmail(email);
+    return res.status(StatusCodes.OK).json();
+  } catch (error) {
+    return res.status(StatusCodes.UNAUTHORIZED).json(error);
+  }
+};
+
 const resetPassword = async (req, res) => {
   try {
-    const { email, name } = req.body;
-    await services.user.resetPassword(email, name);
+    const { email } = req.params;
+    const { password } = req.body;
+    await services.user.resetPassword(email, password);
     return res.status(StatusCodes.OK).json();
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json(error);
@@ -55,4 +66,5 @@ module.exports = {
   findById,
   deleteById,
   resetPassword,
+  sendEmail,
 };

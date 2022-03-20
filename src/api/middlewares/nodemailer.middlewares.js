@@ -5,7 +5,8 @@ const {
   MAIL_USERNAME, MAIL_PASSWORD, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_REFRESH_TOKEN,
 } = process.env;
 
-module.exports = (email, name) => {
+module.exports = (req, _res, next) => {
+  const { name, email } = req.body;
   const transporter = mailer.createTransport({
     service: 'gmail',
     auth: {
@@ -34,4 +35,5 @@ module.exports = (email, name) => {
       console.log('Email sent sucessfully');
     }
   });
+  next();
 };

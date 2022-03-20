@@ -1,6 +1,16 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
+const resetPassword = async (collectionName, email, password) => {
+  try {
+    const db = await connection();
+    return await db.collection(collectionName)
+      .updateOne({ email }, { $set: { password } });
+  } catch (error) {
+    return error;
+  }
+};
+
 const findById = async (collectionName, id) => {
   try {
     const db = await connection();
@@ -66,4 +76,5 @@ module.exports = {
   findByEmail,
   findById,
   deleteById,
+  resetPassword,
 };
