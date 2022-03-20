@@ -1,0 +1,1 @@
+module.exports = ['Alimentação', 'Assinaturas e serviços', 'Bares e restaurantes', 'Casa', 'Compras', 'Cuidados pessoais', 'Dívidas e empréstimos', 'Educação', 'Família e filhos', 'Impostos e taxas', 'Investimentos', 'Lazer e hobbies', 'Mercado', 'Outros', 'Pets', 'Presentes e doações', 'Roupas', 'Saúde', 'Trabalho', 'Transporte', 'Viagem'];

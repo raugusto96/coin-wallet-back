@@ -45,7 +45,7 @@ const deleteById = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const user = await services.user.createUser(req.body);
-    return res.status(StatusCodes.OK).json({ user });
+    return res.status(StatusCodes.CREATED).json({ user });
   } catch (error) {
     return res.status(StatusCodes.CONFLICT).json(error);
   }
