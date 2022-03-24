@@ -10,6 +10,6 @@ router.post(
 );
 router.get('/expenses', () => {});
 router.put('expenses/:id', () => {});
-router.delete('expenses/:id', () => {});
+router.delete('/expenses/:id', middlewares.validateToken, controllers.expenses.deleteById);
 
 module.exports = router;
