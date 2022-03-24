@@ -15,7 +15,7 @@ const resetPassword = async (collectionName, email, password) => {
   try {
     const db = await connection();
     return await db.collection(collectionName)
-      .updateOne({ email }, { $set: { password } });
+      .updateOne({ email }, { $set: { password, updated: new Date() } });
   } catch (error) {
     return error;
   }
@@ -61,11 +61,11 @@ const createUser = async (collectionName, item) => {
     const db = await connection();
     const user = await db.collection(collectionName)
       .insertOne({
-        ...item, create: new Date(), update: new Date(), userId: users.length + 1,
+        ...item, created: new Date(), updated: new Date(), userId: users.length + 1,
       });
     const { insertedId: _id } = user;
     return ({
-      ...item, create: new Date(), update: new Date(), _id, userId: users.length + 1,
+      ...item, created: new Date(), updated: new Date(), _id, userId: users.length + 1,
     });
   } catch (error) {
     return error;
