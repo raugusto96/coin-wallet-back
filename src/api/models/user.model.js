@@ -1,6 +1,16 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
+const findAllUsers = async (collectionName) => {
+  try {
+    const db = await connection();
+    return await db.collection(collectionName)
+      .find().toArray();
+  } catch (error) {
+    return error;
+  }
+};
+
 const resetPassword = async (collectionName, email, password) => {
   try {
     const db = await connection();
@@ -47,12 +57,15 @@ const findByEmail = async (collectionName, email) => {
 
 const createUser = async (collectionName, item) => {
   try {
+    const users = await findAllUsers(collectionName);
     const db = await connection();
     const user = await db.collection(collectionName)
-      .insertOne({ ...item, create: new Date(), update: new Date() });
+      .insertOne({
+        ...item, create: new Date(), update: new Date(), userId: users.length + 1,
+      });
     const { insertedId: _id } = user;
     return ({
-      ...item, create: new Date(), update: new Date(), _id,
+      ...item, create: new Date(), update: new Date(), _id, userId: users.length + 1,
     });
   } catch (error) {
     return error;

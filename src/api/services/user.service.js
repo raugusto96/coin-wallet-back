@@ -53,10 +53,10 @@ const createUser = async (item) => {
   const hash = bcrypt.hashSync(item.password, Number(SALT_ROUNDS));
   const newUser = await models.user.createUser(FIRST_COLLECTION_NAME, { ...item, password: hash });
   const {
-    name, email, _id,
+    name, email, _id, userId,
   } = newUser;
   return {
-    name, email, _id,
+    name, email, _id, userId,
   };
 };
 
