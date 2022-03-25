@@ -9,7 +9,7 @@ router.post(
   controllers.expenses.createExpense,
 );
 router.get('/expenses', () => {});
-router.put('expenses/:id', () => {});
+router.put('/expenses/:id', middlewares.validateToken, controllers.expenses.updateById);
 router.delete('/expenses/:id', middlewares.validateToken, controllers.expenses.deleteById);
 
 module.exports = router;

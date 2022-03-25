@@ -1,6 +1,16 @@
 const { StatusCodes } = require('http-status-codes');
 const services = require('../services');
 
+const updateById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const expense = await services.expenses.updateById({ id, data: req.body });
+    return res.status(StatusCodes.OK).json(expense);
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json(error);
+  }
+};
+
 const deleteById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -25,4 +35,5 @@ const createExpense = async (req, res) => {
 module.exports = {
   createExpense,
   deleteById,
+  updateById,
 };

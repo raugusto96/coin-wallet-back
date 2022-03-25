@@ -1,6 +1,20 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
+const updateExpense = async (collectionName, { id, data }) => {
+  try {
+    const db = await connection();
+    return await db.collection(collectionName)
+      .updateOne({ _id: ObjectId(id) }, {
+        $set: {
+          ...data, updated: new Date(),
+        },
+      });
+  } catch (error) {
+    return error;
+  }
+};
+
 const findById = async (collectionName, id) => {
   try {
     const db = await connection();
@@ -43,4 +57,5 @@ module.exports = {
   createExpense,
   deleteById,
   findById,
+  updateExpense,
 };

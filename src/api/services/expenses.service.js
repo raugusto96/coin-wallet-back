@@ -4,6 +4,11 @@ const errorConstructor = require('../utils/errorConstructor.function');
 
 const { SECOND_COLLECTION_NAME } = process.env;
 
+const updateById = async (data) => {
+  await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
+  return { status: 'updated' };
+};
+
 const findById = async (id) => {
   const expense = await models.expense.findById(SECOND_COLLECTION_NAME, id);
   if (!expense) {
@@ -27,4 +32,5 @@ const createExpense = async (data) => {
 module.exports = {
   createExpense,
   deleteById,
+  updateById,
 };
