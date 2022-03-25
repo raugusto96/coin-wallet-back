@@ -2,7 +2,15 @@ const models = require('../models');
 require('dotenv').config();
 const errorConstructor = require('../utils/errorConstructor.function');
 
-const { SECOND_COLLECTION_NAME } = process.env;
+const { FIRST_COLLECTION_NAME, SECOND_COLLECTION_NAME } = process.env;
+
+const getAllExpensesByUser = async () => {
+  const user = await models.expense.getAllExpensesByUser(FIRST_COLLECTION_NAME);
+  if (!user) {
+    throw errorConstructor('User doesn\'t exist');
+  }
+  return user;
+};
 
 const updateById = async (data) => {
   const updated = await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
@@ -36,4 +44,5 @@ module.exports = {
   createExpense,
   deleteById,
   updateById,
+  getAllExpensesByUser,
 };

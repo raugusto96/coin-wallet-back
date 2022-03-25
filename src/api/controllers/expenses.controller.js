@@ -1,6 +1,15 @@
 const { StatusCodes } = require('http-status-codes');
 const services = require('../services');
 
+const getAllExpensesByUser = async (req, res) => {
+  try {
+    const user = await services.expenses.getAllExpensesByUser();
+    return res.status(StatusCodes.OK).json({ user });
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json(error);
+  }
+};
+
 const updateById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -36,4 +45,5 @@ module.exports = {
   createExpense,
   deleteById,
   updateById,
+  getAllExpensesByUser,
 };
