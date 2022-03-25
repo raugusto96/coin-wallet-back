@@ -69,12 +69,12 @@ const logIn = async (item) => {
     throw errorConstructor('Email or password do not match');
   }
   const {
-    name, email, _id, nickname,
+    name, email, _id, userId,
   } = user;
   const token = jwt.sign({
     name, email, _id,
   }, SECRET_KEY, jwtOptions);
-  return { token, nickname };
+  return { token, userId };
 };
 
 module.exports = {
