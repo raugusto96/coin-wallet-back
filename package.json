@@ -4,6 +4,7 @@
   "description": "The back-end of the Coin Wallet App",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "mocha src/integration-tests/ --exit",
     "dev": "nodemon src/api/index.js",
     "lint": "eslint"
