@@ -5,7 +5,10 @@ const errorConstructor = require('../utils/errorConstructor.function');
 const { SECOND_COLLECTION_NAME } = process.env;
 
 const updateById = async (data) => {
-  await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
+  const updated = await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
+  if (updated.matchedCount < 1) {
+    throw errorConstructor('Expense doesn\'t exist');
+  }
   return { status: 'updated' };
 };
 
