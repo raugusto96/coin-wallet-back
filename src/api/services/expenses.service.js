@@ -4,12 +4,19 @@ const errorConstructor = require('../utils/errorConstructor.function');
 
 const { FIRST_COLLECTION_NAME, SECOND_COLLECTION_NAME } = process.env;
 
-const getAllExpensesByUser = async () => {
-  const user = await models.expense.getAllExpensesByUser(FIRST_COLLECTION_NAME);
+const getAllExpensesByUser = async (userId) => {
+  const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, userId);
+  const expenses = await models.expense.getAllExpenses(SECOND_COLLECTION_NAME);
+  // const user = await models.expense.getAllExpensesByUser(SECOND_COLLECTION_NAME, userId);
   if (!user) {
     throw errorConstructor('User doesn\'t exist');
   }
-  return user;
+  const userWithExpenses = {
+    ...user,
+    expenses: expenses
+      .filter((expense) => expense.userId === user.userId),
+  };
+  return userWithExpenses;
 };
 
 const updateById = async (data) => {

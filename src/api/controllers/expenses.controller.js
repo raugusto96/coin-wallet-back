@@ -3,7 +3,8 @@ const services = require('../services');
 
 const getAllExpensesByUser = async (req, res) => {
   try {
-    const user = await services.expenses.getAllExpensesByUser();
+    const { userId } = req.params;
+    const user = await services.expenses.getAllExpensesByUser(userId);
     return res.status(StatusCodes.OK).json({ user });
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json(error);

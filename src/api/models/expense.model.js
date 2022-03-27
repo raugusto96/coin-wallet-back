@@ -1,27 +1,12 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
-const getAllExpensesByUser = async (collectionName) => {
+const getAllExpenses = async (collectionName) => {
   try {
     const db = await connection();
-    const user = await db.collection(collectionName)
-      .aggregate([
-        {
-          $lookup: {
-            from: 'expenses',
-            localField: 'userId',
-            foreignField: 'userId',
-            as: 'expenses',
-          },
-        },
-      ]).toArray();
-    const [userObject] = user;
-    const {
-      _id, email, name, userId, expenses,
-    } = userObject;
-    return {
-      _id, email, name, userId, expenses,
-    };
+    const expenses = await db.collection(collectionName)
+      .find().toArray();
+    return expenses;
   } catch (error) {
     return error;
   }
@@ -84,5 +69,5 @@ module.exports = {
   deleteById,
   findById,
   updateExpense,
-  getAllExpensesByUser,
+  getAllExpenses,
 };
