@@ -8,7 +8,7 @@ router.post(
   middlewares.expense.validateExpenseData,
   controllers.expenses.createExpense,
 );
-router.get('/expenses/:userId', controllers.expenses.getAllExpensesByUser);
+router.get('/expenses/:userId', middlewares.validateToken, controllers.expenses.getAllExpensesByUser);
 router.put('/expenses/:id', middlewares.validateToken, controllers.expenses.updateById);
 router.delete('/expenses/:id', middlewares.validateToken, controllers.expenses.deleteById);
 
