@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "The back-end of the Coin Wallet App",
   "main": "index.js",
-  "engines": {
-    "node": "^16.0"
-  },
   "scripts": {
     "start": "node src/api/index.js",
     "test:mocha": "mocha src/tests/unit/*.js --recursive --timeout 60000 --exit",
