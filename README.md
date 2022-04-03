@@ -8,6 +8,7 @@ A proposta era desenvolver uma aplicação backend para uma carteira de controle
 
 As únicas informações que eu tinha na hora de criar o projeto foram os campos minimos que a aplicação deveria abordar, sendo elas:
 
+<div style="display: flex; justify-content: space-around; align-items: center">
 
 | Usuário     |  Tipo de dado |
 | :---------: |  :------:     |
@@ -23,4 +24,7 @@ Valor         | `string`
 Tipo          | `string`
 Categoria     | `string`
 Data          | `string`
+
+</div>
+
 
