@@ -164,4 +164,13 @@ describe('Testando o expense.model', () => {
     it('Deve criar uma despesa corretamente',
     createTemplateTest(SECOND_COLLECTION_NAME, mocks.expense.sampleExpense, 'createExpense'));
   });
+  describe('Testando o expense.findById', () => {
+    it('Deve retornar a despesa editada corretamente', async () => {
+      const updatedExpense = await models.expense.updateExpense(SECOND_COLLECTION_NAME,
+        { id: '624a245f6cbfae3a0a9e2b83', data: mocks.expense.updateExpense });
+      expect(updatedExpense).to.be.an('object');
+      expect(updatedExpense).to.have.property('modifiedCount');
+      expect(updatedExpense.modifiedCount).to.be.equal(1);
+    });
+  });
 });

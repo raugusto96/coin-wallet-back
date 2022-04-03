@@ -16,7 +16,7 @@ const updateExpense = async (collectionName, { id, data }) => {
   try {
     const db = await connection();
     return await db.collection(collectionName)
-      .updateOne({ _id: ObjectId(id) }, {
+      .updateOne({ _id: id }, {
         $set: {
           ...data, updated: new Date(),
         },
