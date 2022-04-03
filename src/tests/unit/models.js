@@ -160,17 +160,36 @@ describe('Testando o expense.model', () => {
     expect(expense).to.eql(expectedExpense);
   };
 
-  describe('Testando o expense.createExpense', () => {
+  describe('Testando o expense.model.createExpense', () => {
     it('Deve criar uma despesa corretamente',
     createTemplateTest(SECOND_COLLECTION_NAME, mocks.expense.sampleExpense, 'createExpense'));
   });
-  describe('Testando o expense.findById', () => {
-    it('Deve retornar a despesa editada corretamente', async () => {
+  describe('Testando o expense.model.updateExpense', () => {
+    it('Deve retornar dados indicando quantas despesas foram alterados', async () => {
       const updatedExpense = await models.expense.updateExpense(SECOND_COLLECTION_NAME,
         { id: '624a245f6cbfae3a0a9e2b83', data: mocks.expense.updateExpense });
       expect(updatedExpense).to.be.an('object');
       expect(updatedExpense).to.have.property('modifiedCount');
       expect(updatedExpense.modifiedCount).to.be.equal(1);
+    });
+  });
+  describe('Testando o expense.model.getAllExpense', () => {
+    it('Deve retornar todas as despesas cadastradas', async () => {
+      const expenses = await models.expense.getAllExpenses(SECOND_COLLECTION_NAME);
+      expect(expenses).to.be.an('array');
+      expenses.forEach((expense) => {
+        expect(expense).to.be.an('object');
+        expect(expense).to.have.all.keys(mocks.keys.expenseObjectKeys);
+        expect(expense).to.eql({ ...expectedExpense, ...mocks.expense.updateExpense });
+      });
+    });
+  });
+  describe('Testando o expense.model.deleteById', () => {
+    it('Deve retornar dados indicando quantas despesas foram deletadas', async () => {
+      const deletedExpense = await models.expense.deleteById(SECOND_COLLECTION_NAME, { ...expectedExpense, ...mocks.expense.updateExpense });
+      expect(deletedExpense).to.be.an('object');
+      expect(deletedExpense).to.have.property('deletedCount');
+      expect(deletedExpense.deletedCount).to.be.equal(1);
     });
   });
 });
