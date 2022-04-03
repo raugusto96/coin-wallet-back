@@ -5,7 +5,7 @@ require('dotenv').config();
 const router = require('./routes');
 
 const app = express();
-const { PORT } = process.env;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
@@ -14,8 +14,8 @@ app.get('/', (_req, res) => {
   res.send('Coin Wallet API!');
 });
 
-app.use('/', router.user);
-app.use('/', router.expenses);
+app.use('/user', router.user);
+app.use('/expenses', router.expenses);
 
 app.listen(PORT, () => console.log(`App listening the port: ${PORT}`));
 
