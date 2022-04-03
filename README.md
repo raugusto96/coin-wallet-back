@@ -8,23 +8,14 @@ A proposta era desenvolver uma aplicação backend para uma carteira de controle
 
 As únicas informações que eu tinha na hora de criar o projeto foram os campos minimos que a aplicação deveria abordar, sendo elas:
 
-<div style="display: flex; justify-content: space-around; align-items: center">
 
-| Usuário     |  Tipo de dado |
-| :---------: |  :------:     |
-| Nome        | `string`      |
-| Email       | `string`      |
-| Senha       | `string`      |
+| Usuário     |  Tipo de dado | Despesa       | Tipo de dado
+| :---------- |  :----------: | ------------: | :-----:
+| Nome        | `string`      | Título        | `string`
+| Email       | `string`      | Valor         | `string`
+| Senha       | `string`      | Tipo          | `string`
+|             |               | Categoria     | `string`
+|             |               | Data          | `string`
 
-
-Despesa       |  Tipo de dado
-:---------:   |  :------:
-Título        | `string`
-Valor         | `string`
-Tipo          | `string`
-Categoria     | `string`
-Data          | `string`
-
-</div>
 
 
