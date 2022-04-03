@@ -50,4 +50,4 @@ A API consta com 3 rotas:
    -  `/:userId/create-expense` [`POST`] => Cria uma nova despesa de acordo com o `userId` passado via url
    -  `/:id` [`DELETE`] => Deleta uma despesa de acordo com o `id` passado via url
    -  `/:id` [`PUT`] => Edita uma despesa de acordo com o `id` passado via url
-   -  `/:userId` [`PUT`] => Pega todas as despesas de um usuário de acordo com seu `id` passado via url
+   -  `/:userId` [`GET`] => Pega todas as despesas de um usuário de acordo com seu `id` passado via url
