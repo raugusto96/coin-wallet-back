@@ -23,6 +23,18 @@ const expectedUser = {
   userId: 1
 };
 
+const expectedExpense = {
+  value: 30,
+  title: "Comprar pão",
+  type: "withdraw",
+  category: "Alimentação",
+  date: "20/03/2022",
+  created: date,
+  updated: date,
+  _id: '624a245f6cbfae3a0a9e2b83',
+  userId: 1
+};
+
 describe('Testando o user.model', () => {
   let connectionMock;
   before(async () => {
@@ -111,3 +123,45 @@ describe('Testando o user.model', () => {
   });
 });
 
+describe('Testando o expense.model', () => {
+  let connectionMock;
+  before(async () => {
+    connectionMock = await getConnection();
+    sinon.stub(MongoClient, 'connect').resolves(connectionMock);
+  });
+
+  after(async () => {
+    await connectionMock.db(DB_NAME).collection(SECOND_COLLECTION_NAME).drop();
+    MongoClient.connect.restore();
+  });
+
+  beforeEach(() => {
+    set(date);
+  });
+
+  afterEach(() => {
+    reset();
+  });
+
+  describe('Testando as funções básicas', () => {
+    it('Deve conter um CRUD básico', () => {
+      const { expense } = models;
+      expect(expense).to.be.an('object');
+      expect(expense).to.have.all.keys(mocks.keys.expenseModelKeys);
+      Object.values(expense).forEach((basicFunc) => expect(basicFunc).to.be.a('function'));
+    });
+  });
+
+  const createTemplateTest = (collection, value, modelFunc) => async () => {
+    const expense = await models.expense[modelFunc](collection, value);
+    // console.log(expense);
+    expect(expense).to.be.an('object');
+    expect(expense).to.have.all.keys(mocks.keys.expenseObjectKeys);
+    expect(expense).to.eql(expectedExpense);
+  };
+
+  describe('Testando o expense.createExpense', () => {
+    it('Deve criar uma despesa corretamente',
+    createTemplateTest(SECOND_COLLECTION_NAME, mocks.expense.sampleExpense, 'createExpense'));
+  });
+});
