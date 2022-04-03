@@ -25,9 +25,9 @@ A API consta com 3 rotas:
 - `/user` => para as funcionalidades da rota de usuário
   -  `/register` [`POST`] => Registra um novo usuário
   -  `/login` [`POST`] => Realiza o login de um usuário cadastrado previamente
-  -  `/:id` [`GET`] => Pega um usuário de acordo com o id passado via url
-  -  `/:id` [`DELETE`] => Deleta um usuário de acordo com o id passado via url
-  -  `/:email/reset-password` [`PUT`] => Requisita uma alteração de email baseado no email passado via url
+  -  `/:id` [`GET`] => Pega um usuário de acordo com o `id` passado via url
+  -  `/:id` [`DELETE`] => Deleta um usuário de acordo com o `id` passado via url
+  -  `/:email/reset-password` [`PUT`] => Requisita uma alteração de email baseado no `email` passado via url
   -  `/reset-password` [`POST`] => Envia um email para solitação de troca de email
 -  `/expenses` => para as funcionalidades de despesas
    -  `/:userId/create-expense` [`POST`] => Cria uma nova despesa de acordo com o `userId` passado via url
