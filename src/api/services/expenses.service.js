@@ -11,6 +11,9 @@ const getAllExpensesByUser = async (userId) => {
   if (!user) {
     throw errorConstructor('User doesn\'t exist');
   }
+  delete user.create;
+  delete user.password;
+  delete user.update;
   const userWithExpenses = {
     ...user,
     expenses: expenses

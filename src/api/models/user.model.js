@@ -6,12 +6,7 @@ const findByUserId = async (collectionName, id) => {
     const db = await connection();
     const user = await db.collection(collectionName)
       .findOne({ userId: Number(id) });
-    const {
-      _id, email, name, userId, created, updated,
-    } = user;
-    return {
-      _id, email, name, userId, created, updated,
-    };
+    return user;
   } catch (error) {
     return error;
   }
@@ -27,11 +22,11 @@ const findAllUsers = async (collectionName) => {
   }
 };
 
-const resetPassword = async (collectionName, email, password) => {
+const resetPassword = async (collectionName, user) => {
   try {
     const db = await connection();
     return await db.collection(collectionName)
-      .updateOne({ email }, { $set: { password, updated: new Date() } });
+      .updateOne({ email: user.email }, { $set: { password: user.password, updated: new Date() } });
   } catch (error) {
     return error;
   }

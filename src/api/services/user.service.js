@@ -42,7 +42,7 @@ const sendEmail = async (email) => {
 
 const resetPassword = async (email, password) => {
   const hash = bcrypt.hashSync(password, Number(SALT_ROUNDS));
-  await models.user.resetPassword(FIRST_COLLECTION_NAME, email, hash);
+  await models.user.resetPassword(FIRST_COLLECTION_NAME, { email, password: hash });
 };
 
 const createUser = async (item) => {
