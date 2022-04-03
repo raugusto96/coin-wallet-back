@@ -51,3 +51,52 @@ A API consta com 3 rotas:
    -  `/:id` [`DELETE`] => Deleta uma despesa de acordo com o `id` passado via url
    -  `/:id` [`PUT`] => Edita uma despesa de acordo com o `id` passado via url
    -  `/:userId` [`GET`] => Pega todas as despesas de um usuário de acordo com seu `id` passado via url
+---
+
+# Modo de desenvolvimento
+
+O projeto foi desenvolvido utilizando TDD, inicialmente com testes unitários, e posteriormente foi implementado um teste de integração.
+
+---
+
+# Tecnologias
+
+Foi utilizado para o desenvolvimento desse projeto:
+
+## Stacks
+
+- NodeJS
+- Express
+- Mocha
+- Chai
+- Dotenv
+- Cors
+- JWT
+- http-status-codes
+- Nodemon
+- Nodemailer
+- ESLint
+- BCrypt
+
+## Banco de dados
+
+O banco escolhido para a aplicação foi `Atlas MongoDB`, pela agilidade no desenvolvimento, facilidade de adição de novas informações sem necessitar re-estruturar toda a estrutura, pela robustes para lidar com grande volume de requisições e pelo armazenamento em nuvem.
+
+---
+
+# Próximos passos
+
+- [x] Deploy no Heroku
+- [ ] Implementação de testes de integração
+- [ ] Implementação de cobertura de testes utilizando NYC
+- [ ] Implementação de Token de acesso
+
+---
+
+# Contatos
+
+## Rodrigo Augusto (Rod)
+
+- [Linkedin](https://www.linkedin.com/in/roh-augusto96/)
+- [Github](https://github.com/raugusto96)
+- Email: rodrigoaugusto96@outlook.com
