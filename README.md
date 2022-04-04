@@ -1,4 +1,4 @@
-# Bem vindos ao repositório de Back do projeto Coin Wallet
+# Bem vindos ao repositório de Backend do projeto Coin Wallet
 
 ## Contexto
 
