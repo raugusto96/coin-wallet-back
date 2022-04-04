@@ -6,7 +6,6 @@ const { MongoClient } = require('mongodb');
 const { set, reset } = require('mockdate');
 const { DB_NAME, FIRST_COLLECTION_NAME, SECOND_COLLECTION_NAME } = process.env;
 
-const connection = require('../../api/models/connection');
 const { getConnection } = require('./connection');
 
 const models = require('../../api/models');
