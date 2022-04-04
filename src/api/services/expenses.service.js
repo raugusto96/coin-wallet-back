@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const models = require('../models');
 require('dotenv').config();
 const errorConstructor = require('../utils/errorConstructor.function');
@@ -7,9 +8,8 @@ const { FIRST_COLLECTION_NAME, SECOND_COLLECTION_NAME } = process.env;
 const getAllExpensesByUser = async (userId) => {
   const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, userId);
   const expenses = await models.expense.getAllExpenses(SECOND_COLLECTION_NAME);
-  // const user = await models.expense.getAllExpensesByUser(SECOND_COLLECTION_NAME, userId);
   if (!user) {
-    throw errorConstructor('User doesn\'t exist');
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
   }
   delete user.create;
   delete user.password;
@@ -25,7 +25,7 @@ const getAllExpensesByUser = async (userId) => {
 const updateById = async (data) => {
   const updated = await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
   if (updated.matchedCount < 1) {
-    throw errorConstructor('Expense doesn\'t exist');
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
   }
   return { status: 'updated' };
 };
@@ -33,7 +33,7 @@ const updateById = async (data) => {
 const findById = async (id) => {
   const expense = await models.expense.findById(SECOND_COLLECTION_NAME, id);
   if (!expense) {
-    throw errorConstructor('Expense doesn\'t exist');
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
   }
   const { _id, title, type } = expense;
   return { _id, title, type };

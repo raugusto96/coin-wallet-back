@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { StatusCodes } = require('http-status-codes');
 const bcrypt = require('bcrypt');
 const models = require('../models');
 require('dotenv').config();
@@ -15,7 +16,7 @@ const jwtOptions = {
 const findById = async (id) => {
   const user = await models.user.findById(FIRST_COLLECTION_NAME, id);
   if (!user) {
-    throw errorConstructor('User doesn\'t exist');
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
   }
   const { _id, email, name } = user;
   return { _id, email, name };
@@ -36,7 +37,7 @@ const findByEmail = async (email) => {
 const sendEmail = async (email) => {
   const findedEmail = await findByEmail(email);
   if (!findedEmail) {
-    throw errorConstructor('Email not registered!');
+    throw errorConstructor(StatusCodes.UNAUTHORIZED, 'Email not registered!');
   }
 };
 
@@ -48,7 +49,7 @@ const resetPassword = async (email, password) => {
 const createUser = async (item) => {
   const isUserRegistered = await findByEmail(item.email);
   if (isUserRegistered) {
-    throw errorConstructor('User already registered!');
+    throw errorConstructor(StatusCodes.CONFLICT, 'User already registered!');
   }
   const hash = bcrypt.hashSync(item.password, Number(SALT_ROUNDS));
   const newUser = await models.user.createUser(FIRST_COLLECTION_NAME, { ...item, password: hash });
@@ -62,11 +63,11 @@ const createUser = async (item) => {
 
 const logIn = async (item) => {
   const user = await models.user.logIn(FIRST_COLLECTION_NAME, item);
-  if (!verifyPassword(item.password, user.password)) {
-    throw errorConstructor('Email or password do not match');
-  }
   if (!user) {
-    throw errorConstructor('Email or password do not match');
+    throw errorConstructor(StatusCodes.NOT_ACCEPTABLE, 'Email or password do not match');
+  }
+  if (!verifyPassword(item.password, user.password)) {
+    throw errorConstructor(StatusCodes.NOT_ACCEPTABLE, 'Email or password do not match');
   }
   const {
     name, email, _id, userId,

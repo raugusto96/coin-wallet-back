@@ -1,62 +1,62 @@
 const { StatusCodes } = require('http-status-codes');
 const services = require('../services');
 
-const sendEmail = async (req, res) => {
+const sendEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
     await services.user.sendEmail(email);
     return res.status(StatusCodes.OK).json();
   } catch (error) {
-    return res.status(StatusCodes.UNAUTHORIZED).json(error);
+    return next(error);
   }
 };
 
-const resetPassword = async (req, res) => {
+const resetPassword = async (req, res, next) => {
   try {
     const { email } = req.params;
     const { password } = req.body;
     await services.user.resetPassword(email, password);
     return res.status(StatusCodes.OK).json();
   } catch (error) {
-    return res.status(StatusCodes.BAD_REQUEST).json(error);
+    return next(error);
   }
 };
 
-const findById = async (req, res) => {
+const findById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await services.user.findById(id);
     return res.status(StatusCodes.OK).json({ user });
   } catch (error) {
-    return res.status(StatusCodes.BAD_REQUEST).json(error);
+    return next(error);
   }
 };
 
-const deleteById = async (req, res) => {
+const deleteById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const status = await services.user.deleteById(id);
     return res.status(StatusCodes.OK).json(status);
   } catch (error) {
-    return res.status(StatusCodes.BAD_REQUEST).json(error);
+    return next(error);
   }
 };
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const user = await services.user.createUser(req.body);
     return res.status(StatusCodes.CREATED).json({ user });
   } catch (error) {
-    return res.status(StatusCodes.CONFLICT).json(error);
+    return next(error);
   }
 };
 
-const logIn = async (req, res) => {
+const logIn = async (req, res, next) => {
   try {
     const user = await services.user.logIn(req.body);
     return res.status(StatusCodes.OK).json({ user });
   } catch (error) {
-    return res.status(StatusCodes.NOT_ACCEPTABLE).json(error);
+    return next(error);
   }
 };
 

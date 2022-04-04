@@ -9,5 +9,6 @@
         "sourceType": "module"
     },
     "rules": {
+        "no-unused-variable": [true, {"ignore-pattern": "^_"}]
     }
 }
