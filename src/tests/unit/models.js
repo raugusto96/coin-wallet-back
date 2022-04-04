@@ -6,6 +6,7 @@ const { MongoClient } = require('mongodb');
 const { set, reset } = require('mockdate');
 const { DB_NAME, FIRST_COLLECTION_NAME, SECOND_COLLECTION_NAME } = process.env;
 
+const connection = require('../../api/models/connection');
 const { getConnection } = require('./connection');
 
 const models = require('../../api/models');
@@ -33,6 +34,18 @@ const expectedExpense = {
   updated: date,
   _id: '624a245f6cbfae3a0a9e2b83',
   userId: 1
+};
+
+const expectedUpdatedExpense = {
+  date: "20/03/2022",
+  created: date,
+  updated: date,
+  _id: '624a245f6cbfae3a0a9e2b83',
+  userId: 1,
+  title: "Comprar gasolina",
+  value: 120,
+	category: "Transporte",
+	type: "withdraw",
 };
 
 describe('Testando o user.model', () => {
@@ -106,15 +119,8 @@ describe('Testando o user.model', () => {
     });
   });
   describe('Testando o user.model.deleteById', () => {
-    beforeEach(() => {
-      connectionMock.db(DB_NAME)
-        .collection(FIRST_COLLECTION_NAME)
-        .insertOne({
-          ...mocks.user.sampleCorrectUser, created: new Date(), updated: new Date(), userId: 2,
-        });
-    });
     it('Deve retornar dados indicando quantos usuários foram deletados', async () => {
-      const findedUser = await models.user.findByUserId(FIRST_COLLECTION_NAME, 2);
+      const findedUser = await models.user.findByUserId(FIRST_COLLECTION_NAME, 1);
       const user = await models.user.deleteById(FIRST_COLLECTION_NAME, findedUser);
       expect(user).to.be.an('object');
       expect(user).to.have.property('deletedCount');
@@ -180,13 +186,13 @@ describe('Testando o expense.model', () => {
       expenses.forEach((expense) => {
         expect(expense).to.be.an('object');
         expect(expense).to.have.all.keys(mocks.keys.expenseObjectKeys);
-        expect(expense).to.eql({ ...expectedExpense, ...mocks.expense.updateExpense });
+        expect(expense).to.eql(expectedUpdatedExpense);
       });
     });
   });
   describe('Testando o expense.model.deleteById', () => {
     it('Deve retornar dados indicando quantas despesas foram deletadas', async () => {
-      const deletedExpense = await models.expense.deleteById(SECOND_COLLECTION_NAME, { ...expectedExpense, ...mocks.expense.updateExpense });
+      const deletedExpense = await models.expense.deleteById(SECOND_COLLECTION_NAME, expectedUpdatedExpense);
       expect(deletedExpense).to.be.an('object');
       expect(deletedExpense).to.have.property('deletedCount');
       expect(deletedExpense.deletedCount).to.be.equal(1);
