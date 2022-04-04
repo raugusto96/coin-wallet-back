@@ -1,4 +1,4 @@
-# Bem vindos ao repositório de Back do projeto Coin Wallet
+# Bem vindos ao repositório de Backend do projeto Coin Wallet
 
 ## Contexto
 
@@ -38,7 +38,7 @@ A API consta com 3 rotas:
 
 ## Modo de desenvolvimento
 
-O projeto foi desenvolvido utilizando TDD, inicialmente com testes unitários, e posteriormente foi implementado um teste de integração.
+O projeto foi desenvolvido e posteriormente foram implementados testes unitários.
 
 ---
 
