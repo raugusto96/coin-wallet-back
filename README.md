@@ -38,7 +38,7 @@ A API consta com 3 rotas:
 
 ## Modo de desenvolvimento
 
-O projeto foi desenvolvido utilizando TDD, inicialmente com testes unitários, e posteriormente foi implementado um teste de integração.
+O projeto foi desenvolvido e posteriormente foram implementados testes unitários.
 
 ---
 
