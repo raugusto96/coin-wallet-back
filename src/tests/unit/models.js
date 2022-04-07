@@ -68,7 +68,7 @@ describe('Testando o user.model', () => {
   });
 
   describe('Testando as funções básicas', () => {
-    it('Deve contar um CRUD básico', () => {
+    it('Deve conter um CRUD básico', () => {
       const { user } = models;
       expect(user).to.be.an('object');
       expect(user).to.have.all.keys(mocks.keys.userModelKeys);
