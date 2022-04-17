@@ -59,15 +59,13 @@ describe('Testando o user.controller', () => {
 
         await controllers.user.findById(req, res, next);
 
-        expect(res.status.calledWith(200)).to.be.equal(true);
+        expect(res.status.calledWith(StatusCodes.OK)).to.be.equal(true);
         expect(res.json.calledWith({ user: { ...returnedUser } })).to.be.equal(true);
       });
 
       it('Deve retornar o erro corretamente', async () => {
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns();
-        id = ObjectId.generate();
-        req.params = { id };
 
         try {
           services.user.findById = sinon.stub().throws('User doesn\'t exist');
@@ -110,10 +108,22 @@ describe('Testando o user.controller', () => {
 
         await controllers.user.createUser(req, res, next);
 
-        expect(res.status.calledWith(201)).to.be.equal(true);
+        expect(res.status.calledWith(StatusCodes.CREATED)).to.be.equal(true);
         expect(res.json.calledWith({ user: returnedUser })).to.be.equal(true);
 
       });
+
+      it('Deve retornar o erro corretamente', async () => {
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        try {
+          services.user.createUser = sinon.stub().throws('User already registered!');
+        } catch (error) {
+          expect(error).to.throw('User already registered!');
+        }   
+      });
+
     });
   });
 });
