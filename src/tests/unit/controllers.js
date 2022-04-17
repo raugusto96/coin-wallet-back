@@ -34,31 +34,85 @@ describe('Testando o user.controller', () => {
       Object.values(controllers.user)
         .forEach((controllerFunc) => expect(controllerFunc).to.be.an('function'));
     });
-    describe('Funções de método GET', () => {
-      describe('FindById funciona corretamente', () => {
-        const res = {};
-        const req = {};
-        const next = (error) => { console.log(error) };
-        let id;
-        const { name, email } = mocks.user.sampleCorrectUser;
-        let returnedUser;
+    describe('FindById funciona corretamente', () => {
+      let res = {};
+      let req = {};
+      const next = (error) => { throw error };
+      let id;
+      const { name, email } = mocks.user.sampleCorrectUser;
+      let returnedUser;
 
-        before(function basicInit() {
-          res.status = sinon.stub().returns(res);
-          res.json = sinon.stub().returns();
-          id = ObjectId.generate();
+      afterEach(() => {
+        sinon.restore();
+        res = {};
+        req = {};
+      });
 
-          returnedUser = { _id: id, name, email };
-          services.user.findById = sinon.stub().returns({ ...returnedUser });
-        });
+      it('Deve retornar o usuário corretamente', async () => {
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+        id = ObjectId.generate();
+        req.params = { id };
 
-        it('FindById retorna corretamente', async () => {
-          req.params = { id };
-          await controllers.user.findById(req, res, next);
+        returnedUser = { _id: id, name, email };
+        services.user.findById = sinon.stub().returns({ ...returnedUser });
 
-          expect(res.status.calledWith(200)).to.be.equal(true);
-          expect(res.json.calledWith({ user: { ...returnedUser } })).to.be.equal(true);
-        });
+        await controllers.user.findById(req, res, next);
+
+        expect(res.status.calledWith(200)).to.be.equal(true);
+        expect(res.json.calledWith({ user: { ...returnedUser } })).to.be.equal(true);
+      });
+
+      it('Deve retornar o erro corretamente', async () => {
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+        id = ObjectId.generate();
+        req.params = { id };
+
+        try {
+          services.user.findById = sinon.stub().throws('User doesn\'t exist');
+        } catch (error) {
+          expect(error).to.throw('User doesn\'t exist');
+        }    
+      });
+
+    });
+
+    describe('CreateUser funciona corretamente', () => {
+      let res = {};
+      let req = {};
+      const next = (error) => { throw error };
+
+      afterEach(() => {
+        sinon.restore();
+        res = {};
+        req = {};
+      });
+
+      it('Deve retornar o usuário criado corretamente ', async () => {
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+        const email = 'email@mail.com';
+        const name = 'Fulana';
+        const password = '123456789';
+        req.body = {
+          email, name, password,
+        };
+        const id = ObjectId.generate();
+        const returnedUser = {
+          id,
+          email,
+          name,
+          userId: 1,
+        };
+
+        services.user.createUser = sinon.stub().returns({ ...returnedUser });
+
+        await controllers.user.createUser(req, res, next);
+
+        expect(res.status.calledWith(201)).to.be.equal(true);
+        expect(res.json.calledWith({ user: returnedUser })).to.be.equal(true);
+
       });
     });
   });

@@ -15,6 +15,9 @@ const jwtOptions = {
 
 const findById = async (id) => {
   const user = await models.user.findById(FIRST_COLLECTION_NAME, id);
+  if (user.name === 'BSONTypeError') {
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
+  }
   if (!user) {
     throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
   }
