@@ -38,9 +38,9 @@ const createExpense = async (collectionName, data) => {
     .insertOne({
       ...data, created: new Date(), updated: new Date(),
     });
-  const { insertedId: _id } = expense;
+  const { insertedId: id } = expense;
   return ({
-    ...data, created: new Date(), updated: new Date(), _id,
+    ...data, id,
   });
 };
 
