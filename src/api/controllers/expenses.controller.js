@@ -5,7 +5,7 @@ const getAllExpensesByUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await services.expenses.getAllExpensesByUser(userId);
-    return res.status(StatusCodes.OK).json({ user });
+    return res.status(StatusCodes.OK).json(user);
   } catch (error) {
     return next(error);
   }
