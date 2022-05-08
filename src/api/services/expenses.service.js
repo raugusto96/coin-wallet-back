@@ -46,8 +46,8 @@ const deleteById = async (id) => {
 
 const createExpense = async (data) => {
   const expense = await models.expense.createExpense(SECOND_COLLECTION_NAME, data);
-  const { userId, value, title, category, type } = expense;
-  return { userId, value, title, category, type };
+  const { userId, value, title, category, type, id } = expense;
+  return { userId, value, title, category, type, id };
 };
 
 module.exports = {
