@@ -10,13 +10,12 @@ const getAllExpenses = async (collectionName) => {
 
 const updateExpense = async (collectionName, { id, value, title, type, category }) => {
   const db = await connection();
-  const updated = await db.collection(collectionName)
+  await db.collection(collectionName)
     .updateOne({ _id: ObjectId(id) }, {
       $set: {
         value, title, type, category, updated: new Date(),
       },
     });
-  return updated;
 };
 
 const findById = async (collectionName, id) => {
