@@ -5,19 +5,21 @@ const errorConstructor = require('../utils/errorConstructor.function');
 
 const { FIRST_COLLECTION_NAME, SECOND_COLLECTION_NAME } = process.env;
 
-const getAllExpensesByUser = async (userId) => {
-  const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, userId);
+const getAllExpensesByUser = async (id) => {
+  const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
   const expenses = await models.expense.getAllExpenses(SECOND_COLLECTION_NAME);
   if (!user) {
     throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
   }
-  delete user.create;
-  delete user.password;
-  delete user.update;
+  const { name, email, userId } = user;
+  const expense = expenses
+    .filter((expense) => expense.userId === userId)
+    .map(({ value, title, category, userId, type }) => ({ value, title, category, userId, type }));
   const userWithExpenses = {
-    ...user,
-    expenses: expenses
-      .filter((expense) => expense.userId === user.userId),
+    name,
+    email,
+    userId,
+    expenses: expense,
   };
   return userWithExpenses;
 };
@@ -42,6 +44,10 @@ const deleteById = async (id) => {
 };
 
 const createExpense = async (data) => {
+  const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, data.userId);
+  if (!user) {
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
+  }
   const expense = await models.expense.createExpense(SECOND_COLLECTION_NAME, data);
   const { userId, value, title, category, type, id } = expense;
   return { userId, value, title, category, type, id };
