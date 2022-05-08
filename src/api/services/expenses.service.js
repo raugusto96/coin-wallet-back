@@ -29,8 +29,8 @@ const updateById = async (data) => {
   }
 };
 
-const findById = async (id) => {
-  const expense = await models.expense.findById(SECOND_COLLECTION_NAME, id);
+const findById = async (userId) => {
+  const expense = await models.expense.findById(SECOND_COLLECTION_NAME, userId);
   if (!expense) {
     throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
   }
