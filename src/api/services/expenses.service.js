@@ -34,14 +34,13 @@ const findById = async (id) => {
   if (!expense) {
     throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
   }
-  const { _id, title, type } = expense;
-  return { _id, title, type };
+  const { id, title, type } = expense;
+  return { id, title, type };
 };
 
 const deleteById = async (id) => {
   const findedExpense = await findById(id);
   await models.expense.deleteById(SECOND_COLLECTION_NAME, findedExpense);
-  return { status: 'deleted' };
 };
 
 const createExpense = async (data) => {
