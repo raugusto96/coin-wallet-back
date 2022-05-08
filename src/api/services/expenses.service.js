@@ -23,11 +23,10 @@ const getAllExpensesByUser = async (userId) => {
 };
 
 const updateById = async (data) => {
-  const updated = await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
-  if (updated.matchedCount < 1) {
+  const { matchedCount } = await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
+  if (matchedCount === 0) {
     throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
   }
-  return { status: 'updated' };
 };
 
 const findById = async (id) => {
