@@ -22,19 +22,19 @@ describe('Insere um novo usuário no BD', () => {
 
   describe('Quando é inserido com sucesso', () => {
     it('Retorna um objeto', async () => {
-      const response = await models.user.createUser(FIRST_COLLECTION_NAME, mock.createUser.payloadCreateUser);
+      const response = await models.user.createUser(FIRST_COLLECTION_NAME, mock.user.payloadCreateUser);
       expect(response).to.be.an('object');
     });
     it('Retorna um objeto contendo as chaves "email", "name", "password", "userId", "id"', async () => {
-      const response = await models.user.createUser(FIRST_COLLECTION_NAME, mock.createUser.payloadCreateUser);
+      const response = await models.user.createUser(FIRST_COLLECTION_NAME, mock.user.payloadCreateUser);
       expect(response).to.be.have.all.keys(['email', 'name', 'password', 'userId', 'id']);
     });
     it('Deve existir um usuário com o nome "Fulano da Silva" cadastrado no banco', async () => {
-      await models.user.createUser(FIRST_COLLECTION_NAME, mock.createUser.payloadCreateUser);
+      await models.user.createUser(FIRST_COLLECTION_NAME, mock.user.payloadCreateUser);
       const movieCreated = await connectionMock
         .db(DB_NAME)
         .collection(FIRST_COLLECTION_NAME)
-        .findOne({ name: mock.createUser.payloadCreateUser.name });
+        .findOne({ name: mock.user.payloadCreateUser.name });
       expect(movieCreated).to.be.not.null;
     });
   });

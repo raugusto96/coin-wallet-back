@@ -15,6 +15,7 @@ describe('Acha todos os usuários', () => {
     connectionMock = await getConnection();
     sinon.stub(MongoClient, 'connect').resolves(connectionMock);
     await connectionMock.db(DB_NAME).createCollection(FIRST_COLLECTION_NAME);
+    await models.user.createUser(FIRST_COLLECTION_NAME, mock.user.payloadCreateUser);
   });
   
   after(async () => {
@@ -24,7 +25,6 @@ describe('Acha todos os usuários', () => {
 
   describe('Quando encontra os usuários corretamente', () => {
     it('Retorna um array', async () => {
-      await models.user.createUser(FIRST_COLLECTION_NAME, mock.createUser.payloadCreateUser);
       const response = await models.user.findAllUsers(FIRST_COLLECTION_NAME);
       expect(response).to.be.an('array');
     });
