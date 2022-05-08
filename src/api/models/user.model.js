@@ -23,8 +23,9 @@ const resetPassword = async (collectionName, user) => {
 
 const deleteById = async (collectionName, user) => {
   const db = await connection();
-  await db.collection(collectionName)
+  const deleted = await db.collection(collectionName)
     .deleteOne(user);
+  return deleted;
 };
 
 const findByEmail = async (collectionName, email) => {
