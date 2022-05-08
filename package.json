@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/api/index.js",
-    "test:mocha": "mocha src/tests/*/*/*.test.js --recursive --timeout 60000 --exit",
+    "test": "mocha src/tests/*/*/*.test.js --timeout 60000 --exit",
     "dev": "nodemon src/api/index.js",
     "lint": "eslint"
   },
@@ -30,6 +30,7 @@
     "eslint": "^8.9.0",
     "mocha": "^9.2.2",
     "mockdate": "^3.0.5",
+    "mongodb-memory-server": "^8.5.2",
     "sinon": "^13.0.1"
   },
   "dependencies": {
