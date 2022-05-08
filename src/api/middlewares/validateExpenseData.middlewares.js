@@ -3,29 +3,35 @@ const errorConstructor = require('../utils/errorConstructor.function');
 const expenseTypes = require('../constants/expenseTypes.constant');
 const expenseCategories = require('../constants/expenseCategories.constant');
 
-const validateExpenseData = async (req, res, next) => {
+const validateExpenseData = async (req, _res, next) => {
   const {
-    value, title, type, category, date,
+    value, title, type, category,
   } = req.body;
+  if (value === undefined) {
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Value" is required'));
+  }
+  if (title === undefined) {
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Title" is required'));
+  }
+  if (type === undefined) {
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Type" is required'));
+  }
+  if (category === undefined) {
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Category" is required'));
+  }
   if (value <= 0) {
-    return res.status(StatusCodes.NOT_ACCEPTABLE).json(errorConstructor('"Value" must to be more than 0'));
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Value" must to be more than 0'));
   }
   if (title.length < 6) {
-    return res.status(StatusCodes.NOT_ACCEPTABLE).json(errorConstructor('"Title" must to be more than 5 characteres'));
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Title" must to be more than 5 characteres'));
   }
   if (!expenseTypes.includes(type)) {
-    return res.status(StatusCodes.NOT_ACCEPTABLE).json(errorConstructor('"Type" is invalid'));
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Type" is invalid'));
   }
   if (!expenseCategories.includes(category)) {
-    return res.status(StatusCodes.NOT_ACCEPTABLE).json(errorConstructor('"Category" is invalid'));
-  }
-  const dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-  const isDateValid = dateRegex.test(date);
-  if (!isDateValid) {
-    return res.status(StatusCodes.NOT_ACCEPTABLE).json(errorConstructor('"Date" is invalid'));
+    return next(errorConstructor(StatusCodes.NOT_ACCEPTABLE, '"Category" is invalid'));
   }
   next();
-  return true;
 };
 
 module.exports = {
