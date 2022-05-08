@@ -9,8 +9,9 @@ const findByUserId = async (collectionName, id) => {
 
 const findAllUsers = async (collectionName) => {
   const db = await connection();
-  return await db.collection(collectionName)
+  const allUsers = await db.collection(collectionName)
     .find().toArray();
+  return allUsers;
 };
 
 const resetPassword = async (collectionName, user) => {
