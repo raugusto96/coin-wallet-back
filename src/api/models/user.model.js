@@ -16,8 +16,9 @@ const findAllUsers = async (collectionName) => {
 
 const resetPassword = async (collectionName, user) => {
   const db = await connection();
-  await db.collection(collectionName)
+  const updated = await db.collection(collectionName)
     .updateOne({ email: user.email }, { $set: { password: user.password, updated: new Date() } });
+  return updated;
 };
 
 const deleteById = async (collectionName, user) => {
