@@ -25,8 +25,8 @@ const updateById = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const status = await services.expenses.deleteById(id);
-    return res.status(StatusCodes.OK).json(status);
+    await services.expenses.deleteById(id);
+    return res.status(StatusCodes.NO_CONTENT).end();
   } catch (error) {
     return next(error);
   }
