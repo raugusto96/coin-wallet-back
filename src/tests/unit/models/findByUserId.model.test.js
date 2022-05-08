@@ -29,7 +29,7 @@ describe('Acha um usuário pelo id', () => {
       const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
       expect(response).to.be.an('object');
     });
-    it('Retorna um objeto com as chaves "email", "name", "password", "userId", "id"', async () => {
+    it('Retorna um objeto com as chaves "email", "name", "password", "userId", "id", "created", "updated"', async () => {
       const id = 1;
       const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
       expect(response).to.have.all.keys(['email', 'name', 'password', 'userId', '_id', 'created', 'updated']);
