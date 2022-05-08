@@ -29,10 +29,9 @@ const deleteById = async (collectionName, user) => {
 };
 
 const findByEmail = async (collectionName, email) => {
-  const formatedEmail = email.trim();
   const db = await connection();
   const findedEmail = await db.collection(collectionName)
-    .findOne({ email: formatedEmail });
+    .findOne({ email });
   return findedEmail;
 };
 
