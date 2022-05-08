@@ -15,8 +15,8 @@ const updateById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { value, title, category, type } = req.body;
-    const expense = await services.expenses.updateById({ id, value, title, category, type });
-    return res.status(StatusCodes.OK).json(expense);
+    await services.expenses.updateById({ id, value, title, category, type });
+    return res.status(StatusCodes.NO_CONTENT).end();
   } catch (error) {
     return next(error);
   }
