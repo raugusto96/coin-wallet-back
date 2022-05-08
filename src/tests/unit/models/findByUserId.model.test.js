@@ -35,4 +35,11 @@ describe('Acha um usuário pelo id', () => {
       expect(response).to.have.all.keys(['email', 'name', 'password', 'userId', '_id', 'created', 'updated']);
     });
   });
+  describe('Quando não encontra o usuário', () => {
+    it('Retorna "null"', async () => {
+      const id = 2;
+      const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
+      expect(response).to.be.null;
+    });
+  });
 });
