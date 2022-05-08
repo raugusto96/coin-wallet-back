@@ -8,7 +8,7 @@ const { getConnection } = require('./mongoMockConnection');
 
 const { DB_NAME, FIRST_COLLECTION_NAME } = process.env;
 
-describe('Insere um novo filme no BD', () => {
+describe('Insere um novo usuário no BD', () => {
   let connectionMock;
   before(async () => {
     connectionMock = await getConnection();
