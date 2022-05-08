@@ -22,14 +22,6 @@ const getAllExpensesByUser = async (userId) => {
   return userWithExpenses;
 };
 
-const updateById = async (data) => {
-  const findedExpense = await findById(data.id);
-  if (findedExpense) {
-    throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
-  }
-  await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
-};
-
 const findById = async (userId) => {
   const expense = await models.expense.findById(SECOND_COLLECTION_NAME, userId);
   if (!expense) {
@@ -37,6 +29,14 @@ const findById = async (userId) => {
   }
   const { id, title, type } = expense;
   return { id, title, type };
+};
+
+const updateById = async (data) => {
+  const findedExpense = await findById(data.id);
+  if (findedExpense) {
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'Expense doesn\'t exist');
+  }
+  await models.expense.updateExpense(SECOND_COLLECTION_NAME, data);
 };
 
 const deleteById = async (id) => {
