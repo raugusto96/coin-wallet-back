@@ -34,9 +34,10 @@ const deleteById = async (req, res, next) => {
 const createExpense = async (req, res, next) => {
   try {
     const { userId } = req.params;
+    const { value, title, type, category } = req.body;
     const expense = await services.expenses
-      .createExpense({ userId: Number(userId), ...req.body });
-    return res.status(StatusCodes.CREATED).json({ expense });
+      .createExpense({ userId: Number(userId), value, title, type, category });
+    return res.status(StatusCodes.CREATED).json(expense);
   } catch (error) {
     return next(error);
   }
