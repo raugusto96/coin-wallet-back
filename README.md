@@ -71,8 +71,7 @@ O banco escolhido para a aplicação foi `Atlas MongoDB`, pela agilidade no dese
 
 - [x] Deploy no Heroku
 - [ ] Implementação de testes de integração
-- [ ] Implementação de cobertura de testes utilizando [NYC](https://www.npmjs.com/package/nyc)
-- [ ] Implementação de Token de acesso
+- [ ] Implementação de cobertura de testes utilizando [NYC](https://www.npmjs.com/package/nyc) (Em progresso)
 
 ---
 
