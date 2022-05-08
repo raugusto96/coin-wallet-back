@@ -1,104 +1,62 @@
-const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 const findByUserId = async (collectionName, id) => {
-  try {
-    const db = await connection();
-    const user = await db.collection(collectionName)
-      .findOne({ userId: Number(id) });
-    return user;
-  } catch (error) {
-    return error;
-  }
+  const db = await connection();
+  const user = await db.collection(collectionName)
+    .findOne({ userId: id });
+  return user;
 };
 
 const findAllUsers = async (collectionName) => {
-  try {
-    const db = await connection();
-    return await db.collection(collectionName)
-      .find().toArray();
-  } catch (error) {
-    return error;
-  }
+  const db = await connection();
+  return await db.collection(collectionName)
+    .find().toArray();
 };
 
 const resetPassword = async (collectionName, user) => {
-  try {
-    const db = await connection();
-    return await db.collection(collectionName)
-      .updateOne({ email: user.email }, { $set: { password: user.password, updated: new Date() } });
-  } catch (error) {
-    return error;
-  }
-};
-
-const findById = async (collectionName, id) => {
-  try {
-    const db = await connection();
-    const findedId = await db.collection(collectionName)
-      .findOne(ObjectId(id));
-    return findedId;
-  } catch (error) {
-    return error;
-  }
+  const db = await connection();
+  await db.collection(collectionName)
+    .updateOne({ email: user.email }, { $set: { password: user.password, updated: new Date() } });
 };
 
 const deleteById = async (collectionName, user) => {
-  try {
-    const db = await connection();
-    const deletedUser = await db.collection(collectionName)
-      .deleteOne(user);
-    return deletedUser;
-  } catch (error) {
-    return error;
-  }
+  const db = await connection();
+  await db.collection(collectionName)
+    .deleteOne(user);
 };
 
 const findByEmail = async (collectionName, email) => {
-  try {
-    const formatedEmail = email.trim();
-    const db = await connection();
-    const findedEmail = await db.collection(collectionName)
-      .findOne({ email: formatedEmail });
-    return findedEmail;
-  } catch (error) {
-    return error;
-  }
+  const formatedEmail = email.trim();
+  const db = await connection();
+  const findedEmail = await db.collection(collectionName)
+    .findOne({ email: formatedEmail });
+  return findedEmail;
 };
 
-const createUser = async (collectionName, item) => {
-  try {
-    const users = await findAllUsers(collectionName);
-    const db = await connection();
-    const user = await db.collection(collectionName)
-      .insertOne({
-        ...item, created: new Date(), updated: new Date(), userId: users.length + 1,
-      });
-    const { insertedId: _id } = user;
-    return ({
-      ...item, created: new Date(), updated: new Date(), _id, userId: users.length + 1,
+const createUser = async (collectionName, user) => {
+  const users = await findAllUsers(collectionName);
+  const db = await connection();
+  const createdUser = await db.collection(collectionName)
+    .insertOne({
+      ...user, created: new Date(), updated: new Date(), userId: users.length + 1,
     });
-  } catch (error) {
-    return error;
-  }
+  const { insertedId: id } = createdUser;
+  return ({
+    ...user, userId: users.length + 1, id,
+  });
 };
 
 const logIn = async (collectionName, { email }) => {
-  try {
-    const formatedEmail = email.trim();
-    const db = await connection();
-    const user = await db.collection(collectionName).findOne({ email: formatedEmail });
-    return user;
-  } catch (error) {
-    return error;
-  }
+  const db = await connection();
+  const user = await db.collection(collectionName).findOne({ email });
+  return user;
 };
 
 module.exports = {
   createUser,
   logIn,
   findByEmail,
-  findById,
+  findAllUsers,
   deleteById,
   findByUserId,
   resetPassword,

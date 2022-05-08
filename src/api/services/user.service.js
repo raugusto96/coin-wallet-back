@@ -1,34 +1,25 @@
-const jwt = require('jsonwebtoken');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require('bcrypt');
 const models = require('../models');
-require('dotenv').config();
 const errorConstructor = require('../utils/errorConstructor.function');
 const verifyPassword = require('../utils/verifyPassword.function');
+const createToken = require('../utils/createToken');
+const nodeMailer = require('../utils/nodemailer.function');
 
-const { SECRET_KEY, FIRST_COLLECTION_NAME, SALT_ROUNDS } = process.env;
-
-const jwtOptions = {
-  expiresIn: '12h',
-  algorithm: 'HS256',
-};
+const { FIRST_COLLECTION_NAME, SALT_ROUNDS } = process.env;
 
 const findById = async (id) => {
-  const user = await models.user.findById(FIRST_COLLECTION_NAME, id);
-  if (user.name === 'BSONTypeError') {
-    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
-  }
+  const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
   if (!user) {
     throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
   }
-  const { _id, email, name } = user;
-  return { _id, email, name };
+  const { userId, email, name } = user;
+  return { email, name, userId };
 };
 
 const deleteById = async (id) => {
   const findedUser = await findById(id);
   await models.user.deleteById(FIRST_COLLECTION_NAME, findedUser);
-  return { status: 'deleted' };
 };
 
 const findByEmail = async (email) => {
@@ -40,8 +31,9 @@ const findByEmail = async (email) => {
 const sendEmail = async (email) => {
   const findedEmail = await findByEmail(email);
   if (!findedEmail) {
-    throw errorConstructor(StatusCodes.UNAUTHORIZED, 'Email not registered!');
+    throw errorConstructor(StatusCodes.BAD_REQUEST, 'Email not registered!');
   }
+  nodeMailer(email);
 };
 
 const resetPassword = async (email, password) => {
@@ -49,18 +41,19 @@ const resetPassword = async (email, password) => {
   await models.user.resetPassword(FIRST_COLLECTION_NAME, { email, password: hash });
 };
 
-const createUser = async (item) => {
-  const isUserRegistered = await findByEmail(item.email);
+const createUser = async (user) => {
+  const isUserRegistered = await findByEmail(user.email);
   if (isUserRegistered) {
     throw errorConstructor(StatusCodes.CONFLICT, 'User already registered!');
   }
-  const hash = bcrypt.hashSync(item.password, Number(SALT_ROUNDS));
-  const newUser = await models.user.createUser(FIRST_COLLECTION_NAME, { ...item, password: hash });
+  const hash = bcrypt.hashSync(user.password, Number(SALT_ROUNDS));
+  const newUser = await models.user.createUser(FIRST_COLLECTION_NAME, { ...user, password: hash });
   const {
-    name, email, _id, userId,
+    name, email, userId,
   } = newUser;
+  const token = createToken(newUser);
   return {
-    name, email, _id, userId,
+    name, email, userId, token,
   };
 };
 
@@ -73,12 +66,10 @@ const logIn = async (item) => {
     throw errorConstructor(StatusCodes.NOT_ACCEPTABLE, 'Email or password do not match');
   }
   const {
-    name, email, _id, userId,
+    name, email, userId,
   } = user;
-  const token = jwt.sign({
-    name, email, _id,
-  }, SECRET_KEY, jwtOptions);
-  return { token, userId };
+  const token = createToken(user);
+  return { name, email, token, userId };
 };
 
 module.exports = {
