@@ -36,7 +36,7 @@ const deleteById = async (req, res, next) => {
   try {
     const { id } = req.params;
     await services.user.deleteById(Number(id));
-    return res.status(StatusCodes.OK).end();
+    return res.status(StatusCodes.NO_CONTENT).end();
   } catch (error) {
     return next(error);
   }
