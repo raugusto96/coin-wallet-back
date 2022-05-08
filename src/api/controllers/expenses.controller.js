@@ -14,7 +14,8 @@ const getAllExpensesByUser = async (req, res, next) => {
 const updateById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const expense = await services.expenses.updateById({ id, data: req.body });
+    const { value, title, category, type } = req.body;
+    const expense = await services.expenses.updateById({ id, value, title, category, type });
     return res.status(StatusCodes.OK).json(expense);
   } catch (error) {
     return next(error);
