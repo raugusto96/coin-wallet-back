@@ -37,7 +37,7 @@ describe('Acha um usuário pelo id', () => {
   });
   describe('Quando não encontra o usuário', () => {
     it('Retorna "null"', async () => {
-      const id = 2;
+      const id = 10;
       const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
       expect(response).to.be.null;
     });
