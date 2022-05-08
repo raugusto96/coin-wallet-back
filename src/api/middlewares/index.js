@@ -4,6 +4,7 @@ const expense = require('./validateExpenseData.middlewares');
 const error = require('./error.middleware');
 const login = require('./validateLogin.middlewares');
 const email = require('./validateEmail.middleware');
+const password = require('./validatePassword.middlewares');
 
 module.exports = {
   user,
@@ -12,4 +13,5 @@ module.exports = {
   error,
   login,
   email,
+  password,
 };
