@@ -4,7 +4,7 @@ const services = require('../services');
 const getAllExpensesByUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const user = await services.expenses.getAllExpensesByUser(userId);
+    const user = await services.expenses.getAllExpensesByUser(Number(userId));
     return res.status(StatusCodes.OK).json(user);
   } catch (error) {
     return next(error);
