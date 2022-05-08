@@ -28,9 +28,8 @@ const findById = async (collectionName, id) => {
 
 const deleteById = async (collectionName, expense) => {
   const db = await connection();
-  const deletedExpense = await db.collection(collectionName)
+  await db.collection(collectionName)
     .deleteOne(expense);
-  return deletedExpense;
 };
 
 const createExpense = async (collectionName, data) => {
