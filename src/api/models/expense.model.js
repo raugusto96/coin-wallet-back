@@ -8,14 +8,15 @@ const getAllExpenses = async (collectionName) => {
   return expenses;
 };
 
-const updateExpense = async (collectionName, { id, data }) => {
+const updateExpense = async (collectionName, { id, value, title, type, category }) => {
   const db = await connection();
-  return await db.collection(collectionName)
-    .updateOne({ _id: id }, {
+  const updated = await db.collection(collectionName)
+    .updateOne({ _id: ObjectId(id) }, {
       $set: {
-        ...data, updated: new Date(),
+        value, title, type, category, updated: new Date(),
       },
     });
+  return updated;
 };
 
 const findById = async (collectionName, id) => {
