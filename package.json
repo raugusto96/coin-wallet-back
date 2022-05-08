@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/api/index.js",
-    "test:mocha": "mocha src/tests/unit/*.js --recursive --timeout 60000 --exit",
+    "test:mocha": "mocha src/tests/*/*/*.test.js --recursive --timeout 60000 --exit",
     "dev": "nodemon src/api/index.js",
     "lint": "eslint"
   },
