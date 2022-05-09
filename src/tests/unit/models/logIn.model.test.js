@@ -1,7 +1,7 @@
 require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
-const { MongoClient, MongoCredentials } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const mock = require('../../mock');
 const models = require('../../../api/models');
 const { getConnection } = require('./mongoMockConnection');
