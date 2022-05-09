@@ -5,6 +5,14 @@ const payloadCreateExpense = {
   category: 'Casa'
 };
 
+const payloadUpdateExpense = {
+  value: 100,
+  title: 'Comprar presente',
+  type: 'withdraw',
+  category: 'Lazer'
+}
+
 module.exports = {
   payloadCreateExpense,
+  payloadUpdateExpense,
 }
