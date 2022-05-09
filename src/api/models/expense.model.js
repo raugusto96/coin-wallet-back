@@ -28,8 +28,9 @@ const findById = async (collectionName, id) => {
 
 const deleteById = async (collectionName, expense) => {
   const db = await connection();
-  await db.collection(collectionName)
-    .deleteOne(expense);
+  const deleted = await db.collection(collectionName)
+  .deleteOne(expense);
+  return deleted;
 };
 
 const createExpense = async (collectionName, data) => {
