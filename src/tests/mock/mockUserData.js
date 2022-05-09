@@ -11,8 +11,15 @@ const payloadResetPassword = {
 
 const emptyPayloadResetPassword = { email: '', password: '' };
 
+const responseFindedUser = {
+  email: 'mail@mail.com',
+  name: 'Fulana da Silva',
+  userId: 1
+};
+
 module.exports = {
   payloadCreateUser,
   payloadResetPassword,
   emptyPayloadResetPassword,
+  responseFindedUser,
 }
