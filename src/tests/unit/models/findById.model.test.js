@@ -10,7 +10,7 @@ const { DB_NAME, SECOND_COLLECTION_NAME } = process.env;
 
 async function deleteAllData(myDbName, myDbCollection) {
   await models.connection(myDbName)
-        .then((db) => db.collection(myDbCollection).deleteMany({}));
+    .then((db) => db.collection(myDbCollection).deleteMany({}));
 }
 
 describe('Acha uma despesa pelo id', () => {
