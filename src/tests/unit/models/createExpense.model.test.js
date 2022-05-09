@@ -30,5 +30,25 @@ describe('Insere uma nova despesa no BD', () => {
       const response = await models.expense.createExpense(SECOND_COLLECTION_NAME, mock.expense.payloadCreateExpense);
       expect(response).to.have.all.keys(['value', 'title', 'type', 'category', 'id']);
     });
+    it('Deve existir uma despesa com a chave value e o valor "100"', async () => {
+      const response = await models.expense.createExpense(SECOND_COLLECTION_NAME, mock.expense.payloadCreateExpense);
+      expect(response).to.have.property('value');
+      expect(response.value).to.be.equal(500);
+    });
+    it('Deve existir uma despesa com a chave title e o valor "Comprar roupa"', async () => {
+      const response = await models.expense.createExpense(SECOND_COLLECTION_NAME, mock.expense.payloadCreateExpense);
+      expect(response).to.have.property('title');
+      expect(response.title).to.be.equal('Comprar roupa');
+    });
+    it('Deve existir uma despesa com a chave type e o valor "withdraw"', async () => {
+      const response = await models.expense.createExpense(SECOND_COLLECTION_NAME, mock.expense.payloadCreateExpense);
+      expect(response).to.have.property('type');
+      expect(response.type).to.be.equal('withdraw');
+    });
+    it('Deve existir uma despesa com a chave category e o valor "Casa"', async () => {
+      const response = await models.expense.createExpense(SECOND_COLLECTION_NAME, mock.expense.payloadCreateExpense);
+      expect(response).to.have.property('category');
+      expect(response.category).to.be.equal('Casa');
+    });
   });
 });
