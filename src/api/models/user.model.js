@@ -7,7 +7,7 @@ const findByUserId = async (collectionName, id) => {
   return user;
 };
 
-const findAllUsers = async (collectionName) => {
+const getAllUsers = async (collectionName) => {
   const db = await connection();
   const allUsers = await db.collection(collectionName)
     .find().toArray();
@@ -36,7 +36,7 @@ const findByEmail = async (collectionName, email) => {
 };
 
 const createUser = async (collectionName, user) => {
-  const users = await findAllUsers(collectionName);
+  const users = await getAllUsers(collectionName);
   const db = await connection();
   const createdUser = await db.collection(collectionName)
     .insertOne({
@@ -58,7 +58,7 @@ module.exports = {
   createUser,
   logIn,
   findByEmail,
-  findAllUsers,
+  getAllUsers,
   deleteById,
   findByUserId,
   resetPassword,
