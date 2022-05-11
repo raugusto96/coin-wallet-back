@@ -19,7 +19,8 @@ const findById = async (id) => {
 
 const deleteById = async (id) => {
   const findedUser = await findById(id);
-  await models.user.deleteById(FIRST_COLLECTION_NAME, findedUser);
+  const data = await models.user.deleteById(FIRST_COLLECTION_NAME, findedUser);
+  return data;
 };
 
 const findByEmail = async (email) => {

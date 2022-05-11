@@ -17,9 +17,15 @@ const responseFindedUser = {
   userId: 1
 };
 
+const responseDeletedData = {
+  acknowledged: true,
+  deletedCount: 1,
+}
+
 module.exports = {
   payloadCreateUser,
   payloadResetPassword,
   emptyPayloadResetPassword,
   responseFindedUser,
+  responseDeletedData,
 }
