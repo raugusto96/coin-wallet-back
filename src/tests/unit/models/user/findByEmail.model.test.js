@@ -2,13 +2,13 @@ require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
 const { MongoClient } = require('mongodb');
-const mock = require('../../mock');
-const models = require('../../../api/models');
-const { getConnection } = require('./mongoMockConnection');
+const mock = require('../../../mock');
+const models = require('../../../../api/models');
+const { getConnection } = require('../mongoMockConnection');
 
 const { DB_NAME, FIRST_COLLECTION_NAME } = process.env;
 
-describe('Acha um usuário pelo email', () => {
+describe('Testa a função findByEmail', () => {
   let connectionMock;
   
   before(async () => {

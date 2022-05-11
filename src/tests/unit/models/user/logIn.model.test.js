@@ -2,13 +2,13 @@ require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
 const { MongoClient } = require('mongodb');
-const mock = require('../../mock');
-const models = require('../../../api/models');
-const { getConnection } = require('./mongoMockConnection');
+const mock = require('../../../mock');
+const models = require('../../../../api/models');
+const { getConnection } = require('../mongoMockConnection');
 
 const { DB_NAME, FIRST_COLLECTION_NAME } = process.env;
 
-describe('Acha um usuário pelo id', () => {
+describe('Testa a função login', () => {
   let connectionMock;
   
   before(async () => {
@@ -23,22 +23,19 @@ describe('Acha um usuário pelo id', () => {
     MongoClient.connect.restore();
   });
 
-  describe('Quando encontra um usuário corretamente', () => {
+  describe('Quando encontra o usuário para realizar o login', () => {
     it('Retorna um objeto', async () => {
-      const id = 1;
-      const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
+      const response = await models.user.logIn(FIRST_COLLECTION_NAME, mock.user.payloadCreateUser);
       expect(response).to.be.an('object');
     });
-    it('Retorna um objeto com as chaves "email", "name", "password", "userId", "id", "created", "updated"', async () => {
-      const id = 1;
-      const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
-      expect(response).to.have.all.keys(['email', 'name', 'password', 'userId', '_id', 'created', 'updated']);
+    it('Retorna um objeto com as chaves "id", "email", "name", "password", "created", "updated", "userId"', async () => {
+      const response = await models.user.findByEmail(FIRST_COLLECTION_NAME, mock.user.payloadCreateUser.email);
+      expect(response).to.have.all.keys(['_id', 'email', 'name', 'password', 'created', 'updated', 'userId']);
     });
   });
   describe('Quando não encontra o usuário', () => {
     it('Retorna "null"', async () => {
-      const id = 10;
-      const response = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
+      const response = await models.user.logIn(FIRST_COLLECTION_NAME, mock.user.emptyPayloadResetPassword);
       expect(response).to.be.null;
     });
   });

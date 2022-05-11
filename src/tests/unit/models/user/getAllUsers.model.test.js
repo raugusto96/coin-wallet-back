@@ -2,13 +2,13 @@ require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
 const { MongoClient } = require('mongodb');
-const mock = require('../../mock');
-const models = require('../../../api/models');
-const { getConnection } = require('./mongoMockConnection');
+const mock = require('../../../mock');
+const models = require('../../../../api/models');
+const { getConnection } = require('../mongoMockConnection');
 
 const { DB_NAME, FIRST_COLLECTION_NAME } = process.env;
 
-describe('Acha todos os usuários', () => {
+describe('Testa a função getAllUsers', () => {
   let connectionMock;
   
   before(async () => {
@@ -25,11 +25,11 @@ describe('Acha todos os usuários', () => {
 
   describe('Quando encontra os usuários corretamente', () => {
     it('Retorna um array', async () => {
-      const response = await models.user.findAllUsers(FIRST_COLLECTION_NAME);
+      const response = await models.user.getAllUsers(FIRST_COLLECTION_NAME);
       expect(response).to.be.an('array');
     });
     it('Cada objeto do array possui as chaves "email", "name", "password", "userId", "id", "created", "updated"', async () => {
-      const response = await models.user.findAllUsers(FIRST_COLLECTION_NAME);
+      const response = await models.user.getAllUsers(FIRST_COLLECTION_NAME);
       response.forEach((user) => expect(user).to.have.all.keys(['email', 'name', 'password', 'userId', '_id', 'created', 'updated']));
     });
   });
@@ -37,8 +37,8 @@ describe('Acha todos os usuários', () => {
     it('Retorna um array vazio', async () => {
       const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, 1);
       await models.user.deleteById(FIRST_COLLECTION_NAME, user);
-      const response = await models.user.findAllUsers(FIRST_COLLECTION_NAME);
-      expect(response).to.have.length(0);
+      const response = await models.user.getAllUsers(FIRST_COLLECTION_NAME);
+      expect(response).to.be.empty;
     });
   });
 });

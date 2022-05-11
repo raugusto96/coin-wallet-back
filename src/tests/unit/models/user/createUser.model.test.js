@@ -1,14 +1,14 @@
 const sinon = require('sinon');
 require('dotenv').config();
 const { expect } = require('chai');
-const mock = require('../../mock');
-const models = require('../../../api/models');
+const mock = require('../../../mock');
+const models = require('../../../../api/models');
 const { MongoClient } = require('mongodb');
-const { getConnection } = require('./mongoMockConnection');
+const { getConnection } = require('../mongoMockConnection');
 
 const { DB_NAME, FIRST_COLLECTION_NAME } = process.env;
 
-describe('Insere um novo usuário no BD', () => {
+describe('Testa a função createUser ao inserir um novo usuário no BD', () => {
   let connectionMock;
   before(async () => {
     connectionMock = await getConnection();

@@ -2,9 +2,9 @@ require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
 const { MongoClient } = require('mongodb');
-const mock = require('../../mock');
-const models = require('../../../api/models');
-const { getConnection } = require('./mongoMockConnection');
+const mock = require('../../../mock');
+const models = require('../../../../api/models');
+const { getConnection } = require('../mongoMockConnection');
 
 const { DB_NAME, SECOND_COLLECTION_NAME } = process.env;
 
@@ -13,7 +13,7 @@ async function deleteAllData(myDbName, myDbCollection) {
     .then((db) => db.collection(myDbCollection).deleteMany({}));
 }
 
-describe('Remove uma despesa do BD', () => {
+describe('Testa a função deleteExpense ao remover uma despesa do BD', () => {
   let connectionMock;
   let expense = null;
   let createdExpense = null;
