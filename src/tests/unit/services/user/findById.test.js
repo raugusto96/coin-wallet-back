@@ -1,13 +1,13 @@
 require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
-const services = require('../../../api/services');
-const models = require('../../../api/models');
-const mock = require('../../mock');
+const services = require('../../../../api/services');
+const models = require('../../../../api/models');
+const mock = require('../../../mock');
 
 const { FIRST_COLLECTION_NAME } = process.env;
 
-describe('Encontra um usuário pelo id', () => {
+describe('Testa a função findById do service', () => {
 
   before(() => {
     sinon.stub(models.user, 'findByUserId').resolves(mock.user.responseFindedUser);
