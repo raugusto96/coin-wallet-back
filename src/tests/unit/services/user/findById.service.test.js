@@ -4,6 +4,7 @@ const { expect } = require('chai');
 const services = require('../../../../api/services');
 const models = require('../../../../api/models');
 const mock = require('../../../mock');
+const errorConstructor = require('../../../../api/utils/errorConstructor.function');
 
 const { FIRST_COLLECTION_NAME } = process.env;
 
@@ -43,22 +44,23 @@ describe('Testa a função findById do service', () => {
     });
   });
   describe('Quando não encontra um usuário', () => {
-    it('Lança um erro', async () => {
-      models.user.findByUserId.restore();
-      sinon.stub(models.user, 'findByUserId').rejects('User doesn\'t exist');
-      try {
-        await services.user.findById(FIRST_COLLECTION_NAME, '2');        
-      } catch (error) {
-        expect(error).to.be.a('error');
-      }
-    });
     it('Lança um erro com a mensagem "User doesn\'t exist"', async () => {
       models.user.findByUserId.restore();
       sinon.stub(models.user, 'findByUserId').rejects('User doesn\'t exist');
       try {
-        await services.user.findById(FIRST_COLLECTION_NAME, '2');        
+        await services.user.findById(FIRST_COLLECTION_NAME, '2');
       } catch (error) {
         expect(error).to.match(/user doesn\'t exist/i);
+      }
+    });
+    it('Testa se chama a função errorConstructor', async () => {
+      models.user.findByUserId.restore();
+      sinon.stub(models.user, 'findByUserId').returns(null);
+      try {
+        await services.user.findById();
+      } catch (error) {
+        expect(error.status).to.be.equal(400);
+        expect(error.message).to.match(/user doesn\'t exist/i)
       }
     });
   });
