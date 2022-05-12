@@ -14,6 +14,7 @@ describe('Testando a função deleteById do service', () => {
   });
 
   after(() => {
+    models.user.findByUserId.restore();
     models.user.deleteById.restore();
   });
 
@@ -37,7 +38,7 @@ describe('Testando a função deleteById do service', () => {
       models.user.findByUserId.restore();
       sinon.stub(models.user, 'findByUserId').rejects('User doesn\'t exist');
       try {
-      await services.user.deleteById('10');  
+        await services.user.deleteById('10');  
       } catch (error) {
         expect(error).to.match(/user doesn\'t exist/i);
       }
