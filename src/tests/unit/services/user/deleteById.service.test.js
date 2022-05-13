@@ -5,8 +5,6 @@ const services = require('../../../../api/services');
 const models = require('../../../../api/models');
 const mock = require('../../../mock');
 
-const { FIRST_COLLECTION_NAME } = process.env;
-
 describe('Testando a função deleteById do service', () => {
   before(() => {
     sinon.stub(models.user, 'deleteById').resolves(mock.user.responseDeletedData);
