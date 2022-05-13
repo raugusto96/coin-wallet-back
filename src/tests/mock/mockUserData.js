@@ -20,7 +20,7 @@ const responseFindedUser = {
 const responseDeletedData = {
   acknowledged: true,
   deletedCount: 1,
-}
+};
 
 module.exports = {
   payloadCreateUser,
