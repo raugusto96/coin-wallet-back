@@ -11,7 +11,7 @@ const { FIRST_COLLECTION_NAME, SALT_ROUNDS } = process.env;
 const findById = async (id) => {
   const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
   if (!user) {
-    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
+    throw errorConstructor(StatusCodes.NOT_FOUND, 'User doesn\'t exist');
   }
   const { userId, email, name } = user;
   return { email, name, userId };
@@ -31,9 +31,9 @@ const findByEmail = async (email) => {
 const sendEmail = async (email) => {
   const findedEmail = await findByEmail(email);
   if (!findedEmail) {
-    throw errorConstructor(StatusCodes.BAD_REQUEST, 'Email not registered!');
+    throw errorConstructor(StatusCodes.NOT_FOUND, 'Email not registered!');
   }
-  nodeMailer(email);
+  nodeMailer.sendMail(email);
 };
 
 const resetPassword = async (email, password) => {
