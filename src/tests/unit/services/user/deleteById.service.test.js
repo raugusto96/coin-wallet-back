@@ -19,18 +19,9 @@ describe('Testando a função deleteById do service', () => {
   });
 
   describe('Quando remove um usuário encontrado', () => {
-    it('Retorna um objeto', async () => {
+    it('Retorna "undefined"', async () => {
       const response = await services.user.deleteById('1');
-      expect(response).to.be.an('object');
-    });
-    it('Retorna um objeto com as chaves "acknowlewdged", "deletedCount"', async () => {
-      const response = await services.user.deleteById('1');
-      expect(response).to.have.all.keys(['acknowledged', 'deletedCount']);
-    });
-    it('Retorna um objeto com a chave "deletedCount" e o valor "1"', async () => {
-      const response = await services.user.deleteById('1');
-      expect(response).to.have.property('deletedCount');
-      expect(response.deletedCount).to.be.equal(1);
+      expect(response).to.be.undefined;
     });
   });
   describe('Quando não encontra um usuário para remover', () => {
