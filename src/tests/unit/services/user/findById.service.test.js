@@ -56,7 +56,7 @@ describe('Testa a função findById do service', () => {
       try {
         await services.user.findById();
       } catch (error) {
-        expect(error.status).to.be.equal(400);
+        expect(error.status).to.be.equal(404);
         expect(error.message).to.match(/user doesn\'t exist/i)
       }
     });
