@@ -22,10 +22,22 @@ const responseDeletedData = {
   deletedCount: 1,
 };
 
+const responseHashSync = '$2b$10$nOUIs5kJ7naTuTFkBy1veuK0kSxUFXfuaOKdOKf9xYT0KKIGSJwFa';
+
+const responseUpdatedData = {
+  acknowledged: true,
+  modifiedCount: 1,
+  upsertedId: null,
+  upsertedCount: null,
+  matchedCount: 1,
+};
+
 module.exports = {
   payloadCreateUser,
   payloadResetPassword,
   emptyPayloadResetPassword,
   responseFindedUser,
   responseDeletedData,
+  responseHashSync,
+  responseUpdatedData,
 }
