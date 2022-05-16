@@ -22,8 +22,14 @@ const responseExpensesData = [
   },
 ];
 
+const responseFindedExpense = {
+  title: 'Gasolina',
+  type: 'withdraw'
+}
+
 module.exports = {
   payloadCreateExpense,
   payloadUpdateExpense,
   responseExpensesData,
+  responseFindedExpense,
 }
