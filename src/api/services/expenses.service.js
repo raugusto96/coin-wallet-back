@@ -9,7 +9,7 @@ const getAllExpensesByUser = async (id) => {
   const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, id);
   const expenses = await models.expense.getAllExpenses(SECOND_COLLECTION_NAME);
   if (!user) {
-    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
+    throw errorConstructor(StatusCodes.NOT_FOUND, 'User doesn\'t exist');
   }
   const { name, email, userId } = user;
   const expense = expenses
