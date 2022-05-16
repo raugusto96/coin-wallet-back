@@ -5,7 +5,6 @@ const services = require('../../../../api/services');
 const models = require('../../../../api/models');
 const mock = require('../../../mock');
 const bcrypt = require('bcrypt');
-const errorConstructor = require('../../../../api/utils/errorConstructor.function');
 
 describe('Testando a função createUser do service', () => {
 
