@@ -3,7 +3,6 @@ const { expect } = require('chai');
 const services = require('../../../../api/services');
 const models = require('../../../../api/models');
 const mock = require('../../../mock');
-const { ObjectId } = require('mongodb');
 
 describe('Testa a função updateById do service', () => {
   
