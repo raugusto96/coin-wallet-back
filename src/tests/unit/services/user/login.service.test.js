@@ -5,9 +5,7 @@ const services = require('../../../../api/services');
 const models = require('../../../../api/models');
 const mock = require('../../../mock');
 const { ObjectId } = require('mongodb');
-const createToken = require('../../../../api/utils/createToken');
 const bcrypt = require('bcrypt');
-const verifyPassword = require('../../../../api/utils/verifyPassword.function');
 
 describe('Testando a função login do service', () => {
 
