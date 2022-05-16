@@ -25,6 +25,14 @@ const responseExpensesData = [
 const responseFindedExpense = {
   title: 'Gasolina',
   type: 'withdraw'
+};
+
+const responseCreateExpense = {
+  value: 30,
+  title: "Comprar pão",
+  category: "Alimentação",
+  userId: 1,
+  type: "withdraw",
 }
 
 module.exports = {
@@ -32,4 +40,5 @@ module.exports = {
   payloadUpdateExpense,
   responseExpensesData,
   responseFindedExpense,
+  responseCreateExpense,
 }
