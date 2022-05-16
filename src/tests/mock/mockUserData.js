@@ -32,6 +32,11 @@ const responseUpdatedData = {
   matchedCount: 1,
 };
 
+const payloadLoginData = {
+  email: 'mail@mail.com',
+  password: '12E456789@',
+};
+
 module.exports = {
   payloadCreateUser,
   payloadResetPassword,
@@ -40,4 +45,5 @@ module.exports = {
   responseDeletedData,
   responseHashSync,
   responseUpdatedData,
+  payloadLoginData,
 }
