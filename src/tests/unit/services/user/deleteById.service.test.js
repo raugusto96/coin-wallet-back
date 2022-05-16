@@ -1,4 +1,3 @@
-require('dotenv').config();
 const sinon = require('sinon');
 const { expect } = require('chai');
 const services = require('../../../../api/services');
