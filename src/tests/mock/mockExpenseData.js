@@ -10,9 +10,20 @@ const payloadUpdateExpense = {
   title: 'Comprar presente',
   type: 'withdraw',
   category: 'Lazer'
-}
+};
+
+const responseExpensesData = [
+  {
+    value: 30,
+    title: "Comprar pão",
+    category: "Alimentação",
+    userId: 1,
+    type: "withdraw"
+  },
+];
 
 module.exports = {
   payloadCreateExpense,
   payloadUpdateExpense,
+  responseExpensesData,
 }
