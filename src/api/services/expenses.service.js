@@ -41,7 +41,8 @@ const updateById = async (data) => {
 
 const deleteById = async (id) => {
   const findedExpense = await findById(id);
-  await models.expense.deleteById(SECOND_COLLECTION_NAME, findedExpense);
+  const deleted = await models.expense.deleteById(SECOND_COLLECTION_NAME, findedExpense);
+  return deleted;
 };
 
 const createExpense = async (data) => {
