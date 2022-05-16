@@ -48,7 +48,7 @@ const deleteById = async (id) => {
 const createExpense = async (data) => {
   const user = await models.user.findByUserId(FIRST_COLLECTION_NAME, data.userId);
   if (!user) {
-    throw errorConstructor(StatusCodes.BAD_REQUEST, 'User doesn\'t exist');
+    throw errorConstructor(StatusCodes.NOT_FOUND, 'User doesn\'t exist');
   }
   const expense = await models.expense.createExpense(SECOND_COLLECTION_NAME, data);
   const { userId, value, title, category, type, id } = expense;
