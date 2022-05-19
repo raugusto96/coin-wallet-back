@@ -37,6 +37,13 @@ const payloadLoginData = {
   password: '12E456789@',
 };
 
+const responseCreatedData = {
+	name: "Rod",
+	email: "rodrigoaugusto96@outlook.com",
+	token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUm9kIiwiZW1haWwiOiJyb2RyaWdvYXVndXN0bzk2QG91dGxvb2suY29tIiwiaWF0IjoxNjUyMDI2NDY5LCJleHAiOjE2NTIwNjk2Njl9.N8J-klxUA86KFWmcvgEOFEMFhpQ8G81Gcx-RUutL7b8",
+	userId: 1
+}
+
 module.exports = {
   payloadCreateUser,
   payloadResetPassword,
@@ -46,4 +53,5 @@ module.exports = {
   responseHashSync,
   responseUpdatedData,
   payloadLoginData,
+  responseCreatedData,
 }
