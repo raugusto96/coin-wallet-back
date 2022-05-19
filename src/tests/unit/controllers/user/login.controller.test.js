@@ -38,7 +38,7 @@ describe('Testa a função login do controller', () => {
   describe('Quando não consegue realizar login', () => {
     
     before(() => {
-      sinon.stub(services.user, 'logIn').rejects({ message: 'User doesn\'t exist' });
+      sinon.stub(services.user, 'logIn').throws({ message: 'User doesn\'t exist' });
       next = sinon.stub().returns();
     });
     
@@ -50,7 +50,6 @@ describe('Testa a função login do controller', () => {
       try {
         await controllers.user.logIn(request, response, next);
       } catch (error) {
-        console.log(error);
         expect(next.calledWith(error)).to.be.equal(true);
       }
     });
