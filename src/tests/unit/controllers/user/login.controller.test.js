@@ -9,7 +9,7 @@ describe('Testa a função login do controller', () => {
   
   const request = {};
   const response = {};
-  let next = null;
+  let next = () => {};
 
   describe('Quando o usuário loga com sucesso', () => {
 
@@ -38,8 +38,8 @@ describe('Testa a função login do controller', () => {
   describe('Quando não consegue realizar login', () => {
     
     before(() => {
-      sinon.stub(services.user, 'logIn').throws({ message: 'User doesn\'t exist' });
-      next = sinon.stub().returns();
+      sinon.stub(services.user, 'logIn').throws({ message: 'Email or password do not match' });
+      next = sinon.spy();
     });
     
     after(() => {
