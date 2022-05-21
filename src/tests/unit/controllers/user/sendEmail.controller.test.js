@@ -8,16 +8,15 @@ describe('Testa a função sendEmail do controller', () => {
   
   const request = {};
   const response = {};
-  let next = null;
+  let next = () => {};
 
   describe('Quando consegue enviar o email com sucesso', () => {
     
     before(() => {
-      sinon.stub(services.user, 'sendEmail').resolves();
+      sinon.stub(services.user, 'sendEmail').resolves(true);
       request.body = { email: 'mail@mail.com' };
       response.status = sinon.stub().returns(response);
       response.end = sinon.stub().returns();
-      next = sinon.stub().returns();
     });
     
     after(() => {
@@ -40,19 +39,16 @@ describe('Testa a função sendEmail do controller', () => {
     
     before(() => {
       sinon.stub(services.user, 'sendEmail').throws({ message: 'Email not exists'});
-      next = sinon.stub().returns();
     });
     
     after(() => {
       services.user.sendEmail.restore();
     });
 
-    it('Verifica se a função "next" recebe um erro como parametro', async () => {
-      try {
-        await controllers.user.sendEmail(request, response, next);
-      } catch (error) {
-        expect(next.calledWith(error)).to.be.equal(true);
-      }
+    it('Verifica se a função "next" foi chamada', async () => {
+      next = sinon.spy();
+      await controllers.user.sendEmail(request, response, next);
+      expect(next.calledOnce).to.be.equal(true);
     });
   });
 });
