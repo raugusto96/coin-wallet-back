@@ -28,7 +28,7 @@ describe('Testa a função sendEmail do controller', () => {
 
       expect(response.status.calledWith(StatusCodes.NO_CONTENT)).to.be.equal(true);
     });
-    it('Finaliza a requisição', async () => {
+    it('Finaliza a requisição da aplicação com um "end"', async () => {
       await controllers.user.sendEmail(request, response, next);
 
       expect(response.end.called).to.be.equal(true);
