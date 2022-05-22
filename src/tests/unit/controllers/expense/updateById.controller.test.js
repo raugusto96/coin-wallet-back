@@ -35,7 +35,7 @@ describe('Testando a função updateById do controller', () => {
       expect(response.status.calledWith(StatusCodes.NO_CONTENT)).to.be.equal(true);
     });
 
-    it('Envia um usuário com sua despesa ao finalizar a requisição', async () => {
+    it('Finaliza a requisição da aplicação com um "end"', async () => {
       await controllers.expenses.updateById(request, response, next);
 
       expect(response.end.called).to.be.equal(true);
