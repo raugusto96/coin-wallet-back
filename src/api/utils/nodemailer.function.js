@@ -31,9 +31,6 @@ module.exports = {
       html: mailText,
     };
 
-    transporter.sendMail(mail, (error, info) => {
-      error ? next(error) : console.log(info.response);
-      transporter.close();
-    });
+    transporter.sendMail(mail);
   }
 };
