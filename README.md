@@ -66,12 +66,20 @@ Foi utilizado para o desenvolvimento desse projeto:
 O banco escolhido para a aplicação foi `Atlas MongoDB`, pela agilidade no desenvolvimento, facilidade de adição de novas informações sem necessitar re-estruturar toda a estrutura, pela robustes para lidar com grande volume de requisições e pelo armazenamento em nuvem.
 
 ---
+## Cobertura de Testes
+
+A atual cobertura de testes é de:
+
+- `100%` das linhas;
+
+![Cobertura de testes unitários](./images/Coverage.png)
+---
 
 ## Próximos passos
 
 - [x] Deploy no Heroku
+- [x] Implementação de cobertura de testes utilizando [NYC](https://www.npmjs.com/package/nyc)
 - [ ] Implementação de testes de integração
-- [ ] Implementação de cobertura de testes utilizando [NYC](https://www.npmjs.com/package/nyc) (Em progresso)
 
 ---
 
