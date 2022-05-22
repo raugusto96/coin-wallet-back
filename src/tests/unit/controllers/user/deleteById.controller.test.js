@@ -3,7 +3,6 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const services = require('../../../../api/services');
 const controllers = require('../../../../api/controllers');
-const mock = require('../../../mock');
 
 describe('Testando a função deleteById do controller', () => {
 
