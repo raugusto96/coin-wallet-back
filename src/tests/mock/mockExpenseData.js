@@ -33,7 +33,22 @@ const responseCreateExpense = {
   category: "Alimentação",
   userId: 1,
   type: "withdraw",
-}
+};
+
+const responseAllExpenses = {
+	name: "Fulana",
+	email: "mail@mail.com",
+	userId: 1,
+	expenses: [
+		{
+			value: 30,
+			title: "Comprar pão",
+			category: "Alimentação",
+			userId: 1,
+			type: "withdraw"
+		}
+	],
+};
 
 module.exports = {
   payloadCreateExpense,
@@ -41,4 +56,5 @@ module.exports = {
   responseExpensesData,
   responseFindedExpense,
   responseCreateExpense,
+  responseAllExpenses,
 }
